@@ -1,12 +1,13 @@
-const mysql = require("mysql2");
+const mysql = require("mysql");
 
 //MySql connection
 
 const groupomaniaDB = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: process.env.MySqlPassword,
+  password: process.env.MY_SQL_PASSWORD,
   database: "groupomania",
+  multipleStatements: true,
 });
 
 groupomaniaDB.connect(function (err) {

@@ -2,7 +2,6 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const session = require("express-session");
 
 // Routes file
 const userRoutes = require("./routes/user");
@@ -13,18 +12,6 @@ const app = express();
 
 //Express Json
 app.use(express.json());
-
-//Sessions
-app.use(
-  session({
-    secret: process.env.sessionKey,
-    saveUninitialized: true,
-    resave: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
-    },
-  })
-);
 
 // Cors header
 app.use((req, res, next) => {
