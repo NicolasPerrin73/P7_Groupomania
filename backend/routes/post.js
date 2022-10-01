@@ -13,16 +13,16 @@ const multer = require("../middleware/multerConfig");
 const postCtrl = require("../controllers/post");
 const commentCtrl = require("../controllers/comment");
 
-//Endpoints
+//Endpoints for post
 router.get("/", auth, postCtrl.getPosts);
 router.post("/", auth, multer, postCtrl.createPost);
+router.delete("/:postId", auth, postCtrl.deletePost);
+router.put("/:postId", auth, multer, postCtrl.modifyPost);
+
+//Endpoints for comment
 router.get("/:postId/comment", auth, commentCtrl.getComments);
 router.post("/:postId/comment", auth, commentCtrl.addComment);
 router.delete("/comment/:commentId", auth, commentCtrl.deleteComment);
 router.put("/comment/:commentId", auth, commentCtrl.modifyComment);
-//router.get("/:id", auth, sauceCtrl.getOneSauce);
-//router.put("/:id", auth, multer, sauceCtrl.modifySauce);
-//router.delete("/:id", auth, sauceCtrl.deleteSauce);
-//router.post("/:id/like", auth, sauceCtrl.likeSauce);
 
 module.exports = router;

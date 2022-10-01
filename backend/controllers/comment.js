@@ -48,7 +48,7 @@ exports.deleteComment = (req, res, next) => {
 };
 
 exports.modifyComment = (req, res, next) => {
-  const selectQuery = "SELECT id,is_admin FROM user where id = ?; SELECT user_id,content,created_date FROM comment WHERE comment_id = ?";
+  const selectQuery = "SELECT id,is_admin FROM user where id = ?; SELECT user_id FROM comment WHERE comment_id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId, req.params.commentId], function (err, results, fields) {
     const userData = results[0][0];
     const commentData = results[1][0];
@@ -58,8 +58,8 @@ exports.modifyComment = (req, res, next) => {
     } else if (req.body.content == "") {
       res.status(400).json("modifyComment error : can't send empty values to database at file ../controllers/comment.js:line59");
     } else if ((userData.is_admin == 1 && commentData.user_id != req.auth.userId) || commentData.user_id == req.auth.userId) {
-      const deleteQuery = "UPDATE comment SET content = ? WHERE comment_id = ?";
-      groupomaniaDB.query(deleteQuery, [req.body.content, req.params.commentId], function (err, results, fields) {
+      const modifyQuery = "UPDATE comment SET content = ? WHERE comment_id = ?";
+      groupomaniaDB.query(modifyQuery, [req.body.content, req.params.commentId], function (err, results, fields) {
         if (err != null) {
           res.status(500).json("modifyComments error: " + err.message + " at file ../controllers/comment.js:line64");
         } else {
