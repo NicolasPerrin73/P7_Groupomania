@@ -127,3 +127,35 @@ exports.modifyPost = (req, res, next) => {
     }
   });
 };
+
+exports.likePost = (req, res, next) => {
+  const likeValue = req.body.like;
+  const likedQuery = "UPDATE post SET liked = liked + 1 WHERE post_id = ?;INSERT INTO post_user_like VALUES (?,?)";
+  const postUserLikeQuery = "SELECT user_id FROM post_user_like WHERE post_id = ?";
+  const unlikedQuery = "UPDATE post SET liked = liked - 1 WHERE post_id = ?;DELETE FROM post_user_like where post_id = ? AND user_id = ?";
+
+  groupomaniaDB.query(postUserLikeQuery, [req.params.postId], function (err, postUserLike, fields) {
+    const userAlreadyLikeArray = postUserLike.map((obj) => obj.user_id);
+    const alreadyLike = userAlreadyLikeArray.find((test) => test == req.auth.userId);
+
+    if (likeValue == 1 && alreadyLike == undefined) {
+      groupomaniaDB.query(likedQuery, [req.params.postId, req.params.postId, req.auth.userId], function (err, results, fields) {
+        if (err != null) {
+          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line144");
+        } else {
+          res.status(200).json("post liked");
+        }
+      });
+    } else if (likeValue == 1 && alreadyLike != undefined) {
+      res.status(200).json("already liked by user");
+    } else if (likeValue == 0 && alreadyLike != undefined) {
+      groupomaniaDB.query(unlikedQuery, [req.params.postId, req.params.postId, req.auth.userId], function (err, results, fields) {
+        if (err != null) {
+          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line154");
+        } else {
+          res.status(200).json("post unliked");
+        }
+      });
+    }
+  });
+};
