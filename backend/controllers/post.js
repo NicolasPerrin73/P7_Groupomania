@@ -112,7 +112,7 @@ exports.modifyPost = (req, res, next) => {
       } else if (postObject.imageUrl != undefined) {
         query = "UPDATE post SET content = ?, image_url = ? WHERE post_id = ?";
         const filename = postData.imageUrl.split("/assets/")[1];
-        fs.unlink(`images/${filename}`, () => {
+        fs.unlink(`assets/${filename}`, () => {
           groupomaniaDB.query(query, [postObject.content, postObject.imageUrl, req.params.postId], function (err, results, fields) {
             if (err != null) {
               res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line118");
