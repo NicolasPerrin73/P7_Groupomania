@@ -86,7 +86,7 @@ exports.modifyUserPicture = (req, res, next) => {
     } else {
       if (userData.picture_url == null) {
         const updateQuery = "UPDATE user SET picture_url = ? WHERE id = ?";
-        groupomaniaDB.query(updateQuery, [req.body.imageUrl, req.auth.userId], function (err, results, fields) {
+        groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
           if (err != null) {
             res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line91");
           } else {
@@ -96,7 +96,7 @@ exports.modifyUserPicture = (req, res, next) => {
       } else if (userData.picture_url != null) {
         const filename = userData.picture_url.split("/assets/")[1];
         fs.unlink(`assets/${filename}`, () => {
-          groupomaniaDB.query(updateQuery, [req.body.imageUrl, req.auth.userId], function (err, results, fields) {
+          groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
             if (err != null) {
               res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line101");
             } else {
