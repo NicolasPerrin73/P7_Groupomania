@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: "Lato", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  margin: 10px;
+}
+
+button {
+  @include button;
+}
+
+.button {
+  @include button;
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
+  height: 30px;
+}
