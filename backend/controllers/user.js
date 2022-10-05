@@ -5,7 +5,7 @@ const groupomaniaDB = require("../middleware/MySqlConnection");
 const fs = require("fs");
 
 exports.signup = (req, res, next) => {
-  if (req.body.email == "" || req.body.password == "" || req.body.prenom == "" || req.body.nom == "") {
+  if (req.body.email == "" || req.body.password == "" || req.body.lastName == "" || req.body.firstName == "") {
     res.status(400).json("Error : can't send empty values to database at file ../controllers/user.js:line9");
   } else {
     bcrypt
@@ -13,7 +13,7 @@ exports.signup = (req, res, next) => {
       .then((hash) => {
         const hashPassword = hash;
         const query = "INSERT INTO `user`(`email`, `password`,`nom`,`prenom`) VALUES (?,?,?,?)";
-        groupomaniaDB.query(query, [req.body.email, hashPassword, req.body.nom, req.body.prenom], function (err, results, fields) {
+        groupomaniaDB.query(query, [req.body.email, hashPassword, req.body.firstName, req.body.lastName], function (err, results, fields) {
           if (results != undefined) {
             return res.status(200).json({ message: "User added" });
           } else {
@@ -111,7 +111,7 @@ exports.modifyUserPicture = (req, res, next) => {
 
 exports.modifyUserName = (req, res, next) => {
   const updateQuery = "UPDATE user SET nom = ?, prenom = ? WHERE id = ?";
-  groupomaniaDB.query(updateQuery, [req.body.nom, req.body.prenom, req.auth.userId], function (err, results, fields) {
+  groupomaniaDB.query(updateQuery, [req.body.firstName, req.body.lastName, req.auth.userId], function (err, results, fields) {
     if (err != null) {
       res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line116");
     } else {

@@ -47,7 +47,7 @@ function Login() {
 
         <section className="login">
           <p>Adhérez au réseau social de Groupomania dès maintenant</p>
-          <Link to="/register" className="button">
+          <Link to="/signup" className="button">
             Inscription
           </Link>
         </section>

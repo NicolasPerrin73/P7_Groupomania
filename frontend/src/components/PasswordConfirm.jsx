@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
-const Password = ({ password, setPassword }) => {
+const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
   const passwordRegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})");
-
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const [isVisible, setIsVisible] = useState("password");
 
@@ -12,11 +11,12 @@ const Password = ({ password, setPassword }) => {
     setIsVisible("password");
 
     if (testPassword === true) {
-      setPassword(event);
+      setPasswordConfirm(event);
       setPasswordErrorMsg("");
     } else if (event === "") {
       setPasswordErrorMsg("");
-      setPassword();
+
+      setPasswordConfirm();
     } else {
       setPasswordErrorMsg("6 caractères dont une Majuscule, une miniscule, une chiffre et un caractère spécial");
     }
@@ -32,14 +32,13 @@ const Password = ({ password, setPassword }) => {
 
   return (
     <>
-      <label htmlFor="password">Mot de passe</label>
+      <label htmlFor="password">Confirmer le mot de passe</label>
       <div className="form__password">
         <input name="password" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
       </div>
-      <span className="form__errorMessage">{passwordErrorMsg}</span>
     </>
   );
 };
 
-export default Password;
+export default PasswordConfirm;
