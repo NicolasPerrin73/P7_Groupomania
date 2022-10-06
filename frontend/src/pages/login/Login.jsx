@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import logo from "../assets/groupomania-logo.png";
-import Email from "../components/Email";
-import Password from "../components/Password";
+import logo from "../../assets/groupomania-logo.png";
+import Email from "../../components/Email";
+import Password from "../../components/Password";
 import axios from "axios";
 import { Link } from "react-router-dom";
 

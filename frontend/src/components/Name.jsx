@@ -19,7 +19,6 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
         setnameErrorMsg(true);
       }
     } else if (event === "") {
-      console.log(event);
       setFirstNameIsValid(false);
       setFirstName();
       if (lasttNameIsValid === true) {

@@ -1,10 +1,11 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/groupomania-logo.png";
 
 const Header = ({ userData }) => {
+  const clearLocalStorage = () => {
+    localStorage.clear();
+  };
+
   return (
     <>
       <header className="header">
@@ -20,7 +21,7 @@ const Header = ({ userData }) => {
             <Link to="/account" className="header__link">
               <i className="fa-solid fa-circle-user"></i>Profil
             </Link>
-            <Link to="/login" className="header__link">
+            <Link to="/login" className="header__link" onClick={clearLocalStorage}>
               <i className="fa-solid fa-right-from-bracket"></i>Deconnexion
             </Link>
           </div>

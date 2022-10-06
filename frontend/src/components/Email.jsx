@@ -8,12 +8,10 @@ const Email = ({ email, setEmail }) => {
 
   const emailValidation = (event) => {
     const testEmail = emailRegExp.test(event);
-    console.log(event);
     if (testEmail === true) {
       setEmail(event);
       setemailErrorMsg("");
     } else if (event === "") {
-      console.log(event);
       setemailErrorMsg("");
       setEmail();
     } else if (testEmail === false) {

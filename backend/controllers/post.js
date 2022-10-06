@@ -5,7 +5,6 @@ const fs = require("fs");
 //Create post
 exports.createPost = (req, res, next) => {
   const { content, created_date } = req.body;
-  console.log(content);
   const postObject = req.file
     ? {
         imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}`,
@@ -34,7 +33,7 @@ exports.createPost = (req, res, next) => {
 
 //Display all posts
 exports.getPosts = (req, res, next) => {
-  const query = "SELECT post_id,content,img_url,liked,created_date,user_id,prenom,nom,picture_url FROM post JOIN user ON post.user_id = user.id ORDER BY created_date DESC";
+  const query = "SELECT post_id,content,img_url,liked,created_date,user_id,prenom,nom,picture_url FROM post JOIN user ON post.user_id = user.id ORDER BY created_date DESC;";
   groupomaniaDB.query(query, function (err, posts, fields) {
     if (err != null) {
       res.status(500).json("line 39: " + err);
@@ -45,7 +44,7 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  const selectQuery = "SELECT id,is_admin FROM user where id = ?; SELECT user_id,image_url FROM post WHERE post_id = ?";
+  const selectQuery = "SELECT id,is_admin FROM user where id = ?; SELECT user_id,img_url FROM post WHERE post_id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId, req.params.postId], function (err, results, fields) {
     const userData = results[0][0];
     const postData = results[1][0];
@@ -53,17 +52,17 @@ exports.deletePost = (req, res, next) => {
     if (postData == undefined) {
       res.status(500).json("deletePost error: post not found at file ../controllers/post.js:line53");
     } else if ((userData.is_admin == 1 && postData.user_id != req.auth.userId) || postData.user_id == req.auth.userId) {
-      if (postData.imageUrl == null) {
+      if (postData.img_url == null) {
         const deleteQuery = "DELETE FROM post WHERE post_id = ?";
         groupomaniaDB.query(deleteQuery, [req.params.postId], function (err, results, fields) {
           if (err != null) {
             res.status(500).json("deletepost error: " + err.message + " at file ../controllers/post.js:line59");
           } else {
-            res.status(200).json("post without deleted");
+            res.status(200).json("post without image deleted");
           }
         });
-      } else if (postData.imageUrl != null) {
-        const filename = postData.imageUrl.split("/assets/")[1];
+      } else if (postData.img_url != null) {
+        const filename = postData.img_url.split("/assets/")[1];
         fs.unlink(`assets/${filename}`, () => {
           const deleteQuery = "DELETE FROM post WHERE post_id = ?";
           groupomaniaDB.query(deleteQuery, [req.params.postId], function (err, results, fields) {

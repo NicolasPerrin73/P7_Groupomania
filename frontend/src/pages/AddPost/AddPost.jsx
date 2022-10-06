@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../../components/header/Header";
 import { useDate, useSqlDate, useUserdata } from "../../utils/hook";
 
@@ -8,12 +8,11 @@ const AddPost = () => {
   const { userData } = useUserdata();
 
   const [selectedImage, setSelectedImage] = useState();
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("");
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
-      console.log(selectedImage);
     }
   };
 
@@ -40,6 +39,7 @@ const AddPost = () => {
         },
       })
       .then((res) => console.log(res.data))
+      .then((window.location.href = "/"))
       .catch((err) => console.log(err));
   };
 

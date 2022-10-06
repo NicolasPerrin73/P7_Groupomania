@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function useUserdata() {
@@ -27,4 +27,25 @@ export function useSqlDate() {
   let today = new Date();
   let sqlDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes();
   return { sqlDate };
+}
+
+export function useCreatedDate(created_date) {
+  const date = new Date(created_date);
+  let hours;
+  let minutes;
+  const formatTime = () => {
+    if (date.getHours() < 10) {
+      hours = "0" + date.getHours();
+    } else {
+      hours = date.getHours();
+    }
+    if (date.getMinutes() < 10) {
+      minutes = "0" + date.getMinutes();
+    } else {
+      minutes = date.getMinutes();
+    }
+  };
+  formatTime();
+  const formatDate = "le " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " à " + hours + ":" + minutes;
+  return { formatDate };
 }

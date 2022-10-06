@@ -12,25 +12,42 @@ exports.signup = (req, res, next) => {
       .hash(req.body.password, 10)
       .then((hash) => {
         const hashPassword = hash;
-        const query = "INSERT INTO `user`(`email`, `password`,`nom`,`prenom`) VALUES (?,?,?,?)";
-        groupomaniaDB.query(query, [req.body.email, hashPassword, req.body.firstName, req.body.lastName], function (err, results, fields) {
+        const insertQuery = "INSERT INTO `user`(`email`, `password`,`nom`,`prenom`) VALUES (?,?,?,?)";
+        groupomaniaDB.query(insertQuery, [req.body.email, hashPassword, req.body.firstName, req.body.lastName], function (err, results, fields) {
           if (results != undefined) {
-            return res.status(201).json({ message: "User added" });
+            const selectQuery = "SELECT id FROM user WHERE email = ?";
+            groupomaniaDB.query(selectQuery, [req.body.email], function (err, results, fields) {
+              if (err != null) {
+                res.status(500).json("signup error : " + err.message + " at file ../controllers/user.js:line21");
+              } else {
+                const token = jwt.sign({ userId: results[0].id }, process.env.TOKEN_KEY, { expiresIn: "7d" });
+                const updateQuery = "UPDATE user SET token = ? WHERE email = ?";
+                groupomaniaDB.query(updateQuery, [token, req.body.email], function (err, results, fields) {
+                  if (err != null) {
+                    res.status(500).json("signup error : " + err.message + " at file ../controllers/user.js:line27");
+                  }
+                });
+                res.status(200).json({
+                  userId: results[0].id,
+                  token: token,
+                });
+              }
+            });
           } else {
             console.log(err);
-            return res.status(400).json("signup error: " + err.message + " at file ../controllers/user.js:line21");
+            return res.status(400).json("signup error: " + err.message + " at file ../controllers/user.js:line38");
           }
         });
       })
-      .catch((error) => res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line25"));
+      .catch((error) => res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line42"));
   }
 };
 
 exports.login = (req, res, next) => {
-  const query = "SELECT * FROM user WHERE email = ?";
+  const query = "SELECT id,password FROM user WHERE email = ?";
   groupomaniaDB.query(query, [req.body.email], function (err, results, fields) {
     if (err != null) {
-      res.status(500).json("login error : " + err.message + " at file ../controllers/user.js:line33");
+      res.status(500).json("login error : " + err.message + " at file ../controllers/user.js:line50");
     } else if (results[0] == undefined) {
       res.status(401).json("login error: Invalid user or password");
     } else {
@@ -44,7 +61,7 @@ exports.login = (req, res, next) => {
             const query = "UPDATE user SET token = ? WHERE email = ?";
             groupomaniaDB.query(query, [token, req.body.email], function (err, results, fields) {
               if (err != null) {
-                res.status(500).json("login error : " + err.message + " at file ../controllers/user.js:line47");
+                res.status(500).json("login error : " + err.message + " at file ../controllers/user.js:line64");
               }
             });
             res.status(200).json({
@@ -53,18 +70,18 @@ exports.login = (req, res, next) => {
             });
           }
         })
-        .catch((error) => res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line56"));
+        .catch((error) => res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line73"));
     }
   });
 };
 
 exports.getUserData = (req, res, next) => {
-  const query = "SELECT `nom`,`prenom`,`picture_url` FROM user WHERE id = ?";
+  const query = "SELECT `id`,`nom`,`prenom`,`picture_url` FROM user WHERE id = ?";
   groupomaniaDB.query(query, [req.auth.userId], function (err, userData, fields) {
     if (err != null) {
-      res.status(500).json("getUserData error: " + err.message + " at file ../controllers/user.js:line65");
+      res.status(500).json("getUserData error: " + err.message + " at file ../controllers/user.js:line82");
     } else if (userData.length == 0) {
-      res.status(404).json("getUserData error: User not found at file ../controllers/user.js:line67");
+      res.status(404).json("getUserData error: User not found at file ../controllers/user.js:line84");
     } else {
       res.status(200).json(userData);
     }
@@ -82,13 +99,13 @@ exports.modifyUserPicture = (req, res, next) => {
   const selectQuery = "SELECT picture_url FROM user WHERE id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId], function (err, userData, fields) {
     if (err != null) {
-      res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line85");
+      res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line102");
     } else {
       if (userData.picture_url == null) {
         const updateQuery = "UPDATE user SET picture_url = ? WHERE id = ?";
         groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
           if (err != null) {
-            res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line91");
+            res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line108");
           } else {
             res.status(200).json("User picture added");
           }
@@ -98,7 +115,7 @@ exports.modifyUserPicture = (req, res, next) => {
         fs.unlink(`assets/${filename}`, () => {
           groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
             if (err != null) {
-              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line101");
+              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line118");
             } else {
               res.status(200).json("User picture modified");
             }
@@ -113,7 +130,7 @@ exports.modifyUserName = (req, res, next) => {
   const updateQuery = "UPDATE user SET nom = ?, prenom = ? WHERE id = ?";
   groupomaniaDB.query(updateQuery, [req.body.firstName, req.body.lastName, req.auth.userId], function (err, results, fields) {
     if (err != null) {
-      res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line116");
+      res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line133");
     } else {
       res.status(200).json("User name updated");
     }
@@ -124,7 +141,7 @@ exports.modifyUserPassword = (req, res, next) => {
   const selectQuery = "SELECT password FROM user WHERE id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId], function (err, userPassword, fields) {
     if (err != null) {
-      res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line127");
+      res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line144");
     } else {
       bcrypt
         .compare(req.body.oldPassword, userPassword[0].password)
@@ -138,19 +155,19 @@ exports.modifyUserPassword = (req, res, next) => {
               .then((hash) => {
                 groupomaniaDB.query(updateQuery, [hash, req.auth.userId], function (err, results, fields) {
                   if (err != null) {
-                    res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line140");
+                    res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line158");
                   } else {
                     res.status(200).json("Password updated");
                   }
                 });
               })
               .catch((error) => {
-                res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line146");
+                res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line165");
               });
           }
         })
         .catch((error) => {
-          res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line150");
+          res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line170");
         });
     }
   });
@@ -160,7 +177,7 @@ exports.deleteUser = (req, res, next) => {
   const deleteQuery = "DELETE FROM user Where id = ?";
   groupomaniaDB.query(deleteQuery, [req.auth.userId], function (err, results, fields) {
     if (err != null) {
-      res.status(500).json("deleteUser error: " + err.message + " at file ../controllers/user.js:line163");
+      res.status(500).json("deleteUser error: " + err.message + " at file ../controllers/user.js:line180");
     } else {
       res.status(200).json("User deleted");
     }
