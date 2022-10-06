@@ -15,7 +15,7 @@ exports.signup = (req, res, next) => {
         const query = "INSERT INTO `user`(`email`, `password`,`nom`,`prenom`) VALUES (?,?,?,?)";
         groupomaniaDB.query(query, [req.body.email, hashPassword, req.body.firstName, req.body.lastName], function (err, results, fields) {
           if (results != undefined) {
-            return res.status(200).json({ message: "User added" });
+            return res.status(201).json({ message: "User added" });
           } else {
             console.log(err);
             return res.status(400).json("signup error: " + err.message + " at file ../controllers/user.js:line21");
@@ -60,7 +60,7 @@ exports.login = (req, res, next) => {
 
 exports.getUserData = (req, res, next) => {
   const query = "SELECT `nom`,`prenom`,`picture_url` FROM user WHERE id = ?";
-  groupomaniaDB.query(query, [req.params.id], function (err, userData, fields) {
+  groupomaniaDB.query(query, [req.auth.userId], function (err, userData, fields) {
     if (err != null) {
       res.status(500).json("getUserData error: " + err.message + " at file ../controllers/user.js:line65");
     } else if (userData.length == 0) {
@@ -75,7 +75,7 @@ exports.modifyUserPicture = (req, res, next) => {
   const postObject = req.file
     ? {
         ...JSON.parse(req.body),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+        imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}`,
       }
     : { ...req.body };
 

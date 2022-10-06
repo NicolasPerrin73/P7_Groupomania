@@ -1,0 +1,38 @@
+.header {
+  &__logo {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 150px;
+  }
+  &__nav {
+    display: flex;
+    height: 100px;
+    background-color: $color-tertiary;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    &__link {
+      display: flex;
+    }
+  }
+  & i {
+    font-size: 24px;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50px;
+    padding: 5px;
+
+    &--picture {
+      align-self: center;
+      margin: 10px;
+      & i {
+        font-size: 70px;
+      }
+    }
+  }
+}

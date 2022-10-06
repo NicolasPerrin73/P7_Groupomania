@@ -21,4 +21,14 @@ a {
   text-decoration: none;
   text-align: center;
   height: 30px;
+  color: white;
+}
+
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  padding: 0;
 }

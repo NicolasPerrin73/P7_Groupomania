@@ -19,7 +19,8 @@ function Login() {
         password: password,
       })
       .then(function (res) {
-        console.log(res);
+        const token = res.data.token;
+        localStorage.setItem("token", token);
         setLoginError(false);
         window.location.href = "/";
       })

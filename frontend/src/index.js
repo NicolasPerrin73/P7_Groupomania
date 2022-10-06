@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/Signup";
+import AddPost from "./pages/AddPost/AddPost";
+import Account from "./pages/Account";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +16,8 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />
+        <Route path="/addpost" element={<AddPost />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

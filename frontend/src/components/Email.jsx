@@ -4,7 +4,6 @@ import { useState } from "react";
 const Email = ({ email, setEmail }) => {
   const emailRegExp = new RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
-  const [isValid, setIsValid] = useState(false);
   const [emailErrorMsg, setemailErrorMsg] = useState("");
 
   const emailValidation = (event) => {
@@ -13,15 +12,12 @@ const Email = ({ email, setEmail }) => {
     if (testEmail === true) {
       setEmail(event);
       setemailErrorMsg("");
-      setIsValid(true);
     } else if (event === "") {
       console.log(event);
       setemailErrorMsg("");
-      setIsValid(false);
       setEmail();
     } else if (testEmail === false) {
       setemailErrorMsg("Format d'email incorrecte");
-      setIsValid(false);
     }
   };
 

@@ -1,0 +1,37 @@
+#file {
+  display: none;
+}
+
+.post__content--publish {
+  @include flex-column-center;
+  background: transparent;
+
+  & .button {
+    font-size: 20px;
+    width: 192px;
+    text-align: center;
+    padding: 3px;
+    margin: 10px;
+  }
+
+  & textarea {
+    width: 98%;
+    border: none;
+  }
+}
+
+.img_container {
+  @include flex-column-center;
+  & img {
+    max-width: 100%;
+  }
+  & button {
+    margin: 10px;
+    font-size: 20px;
+  }
+}
+
+.post__footer__bottom--publish {
+  justify-content: center;
+  border: outset $color-primary 5px;
+}

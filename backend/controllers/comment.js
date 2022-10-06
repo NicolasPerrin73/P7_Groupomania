@@ -6,7 +6,7 @@ exports.getComments = (req, res, next) => {
     if (err != null) {
       res.status(500).json("getComments error: " + err.message + " at file ../controllers/comment.js:line7");
     } else if (comments.length == 0) {
-      res.status(404).json("getComments error: no comment found for this post ID at file ../controllers/comment.js:line9");
+      res.status(204).json();
     } else {
       res.status(200).json(comments);
     }
@@ -19,7 +19,7 @@ exports.addComment = (req, res, next) => {
     if (err != null) {
       res.status(500).json("addComments error: " + err.message + " at file ../controllers/comment.js:line20");
     } else {
-      res.status(200).json("Comment added");
+      res.status(201).json("Comment added");
     }
   });
 };

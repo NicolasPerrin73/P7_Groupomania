@@ -29,8 +29,8 @@ const SignUp = () => {
           lastName: lastName,
         })
         .then(function (res) {
-          console.log(res);
-
+          const token = res.data.token;
+          localStorage.setItem("token", token);
           window.location.href = "/";
         })
         .catch(function (error) {

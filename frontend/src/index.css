@@ -342,6 +342,16 @@ a {
   text-decoration: none;
   text-align: center;
   height: 30px;
+  color: white;
+}
+
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+ul {
+  padding: 0;
 }
 
 .login_container {
@@ -424,6 +434,139 @@ a {
 input {
   width: 100%;
   height: 30px;
+}
+
+.header__logo {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  width: 150px;
+}
+.header__nav {
+  display: flex;
+  height: 100px;
+  background-color: #4e5166;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.header__nav__link {
+  display: flex;
+}
+.header i {
+  font-size: 24px;
+}
+.header__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50px;
+  padding: 5px;
+}
+.header__link--picture {
+  align-self: center;
+  margin: 10px;
+}
+.header__link--picture i {
+  font-size: 70px;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 10px;
+  background-color: #ffd7d7;
+  width: 95%;
+  border-radius: 20px;
+}
+.post__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fd2d01;
+  border-radius: 20px 20px 0px 0px;
+  color: white;
+}
+.post__header div {
+  display: flex;
+}
+.post__header time {
+  align-self: flex-end;
+}
+.post__content {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 97.5%;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.post__footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px;
+  background-color: #a9acbd;
+  color: white;
+}
+.post__footer__top i {
+  padding: 3px;
+  font-size: 24px;
+}
+.post__footer__bottom {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fd2d01;
+  color: white;
+  border-radius: 0px 0px 20px 20px;
+  padding: 4px;
+  font-size: 24px;
+}
+.post__footer__bottom i {
+  padding: 3px;
+  margin-right: 4px;
+}
+
+#file {
+  display: none;
+}
+
+.post__content--publish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+.post__content--publish .button {
+  font-size: 20px;
+  width: 192px;
+  text-align: center;
+  padding: 3px;
+  margin: 10px;
+}
+.post__content--publish textarea {
+  width: 98%;
+  border: none;
+}
+
+.img_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img_container img {
+  max-width: 100%;
+}
+.img_container button {
+  margin: 10px;
+  font-size: 20px;
+}
+
+.post__footer__bottom--publish {
+  justify-content: center;
+  border: outset #fd2d01 5px;
 }
 
 /*# sourceMappingURL=index.css.map */

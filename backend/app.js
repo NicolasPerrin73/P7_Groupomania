@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 //Endpoint
-//app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
 
