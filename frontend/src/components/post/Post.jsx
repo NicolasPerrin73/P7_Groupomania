@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCreatedDate } from "../../utils/hook";
 
 const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, created_date, user_id, nom, prenom, picture_url, current_user_id }) => {
@@ -10,7 +11,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get(`http://localhost:3000/api/post/${post_id}/comment`, {
+      .get(`http://localhost:3001/api/post/${post_id}/comment`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -22,7 +23,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
   const deletePost = () => {
     const token = localStorage.getItem("token");
     axios
-      .delete(`http://localhost:3000/api/post/${post_id}`, {
+      .delete(`http://localhost:3001/api/post/${post_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +65,9 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
           {user_id === current_user_id ? (
             <div>
               <i className="fa-solid fa-trash" onClick={deletePost}></i>
-              <i className="fa-solid fa-pen-to-square"></i>
+              <Link to={`/editPost/${post_id}`}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
             </div>
           ) : (
             ""

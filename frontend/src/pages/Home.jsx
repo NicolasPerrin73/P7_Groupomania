@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "../components/header/Header";
+import Header from "../components/Header/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Post from "../components/post/Post";
+import Post from "../components/Post/Post";
 import { useUserdata } from "../utils/hook";
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3000/api/post", {
+      .get("http://localhost:3001/api/post", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

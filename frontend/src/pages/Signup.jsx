@@ -22,7 +22,7 @@ const SignUp = () => {
       setPasswordConfirmError(true);
     } else if (password === passwordConfirm) {
       axios
-        .post("http://localhost:3000/api/auth/signup", {
+        .post("http://localhost:3001/api/auth/signup", {
           email: mail,
           password: password,
           firstName: firstName,

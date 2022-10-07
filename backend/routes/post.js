@@ -15,6 +15,7 @@ const commentCtrl = require("../controllers/comment");
 
 //Endpoints for post
 router.get("/", auth, postCtrl.getPosts);
+router.get("/:postId", auth, postCtrl.getPost);
 router.post("/", auth, multer, postCtrl.createPost);
 router.delete("/:postId", auth, postCtrl.deletePost);
 router.put("/:postId", auth, multer, postCtrl.modifyPost);

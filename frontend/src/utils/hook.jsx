@@ -6,7 +6,7 @@ export function useUserdata() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3000/api/auth/user", {
+      .get("http://localhost:3001/api/auth/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,3 +49,22 @@ export function useCreatedDate(created_date) {
   const formatDate = "le " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " à " + hours + ":" + minutes;
   return { formatDate };
 }
+
+/*export function publishPost(content, sqlDate, selectedImage) {
+  const token = localStorage.getItem("token");
+  let formData = new FormData();
+
+  formData.append("content", content);
+  formData.append("created_date", sqlDate);
+  formData.append("image", selectedImage);
+  axios
+    .post("http://localhost:3001/api/post", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "mutipart/form-data",
+      },
+    })
+    .then((res) => console.log(res.data))
+    .then((window.location.href = "/"))
+    .catch((err) => console.log(err));
+}*/
