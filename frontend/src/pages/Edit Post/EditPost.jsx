@@ -77,9 +77,9 @@ const EditPost = () => {
       <article className="post">
         <header className="post__header">
           <div>
-            {postData.picture_url === null ? "" : <img src={postData.picture_url} alt="post"></img>}
+            <div className="post__header__picture">{postData.picture_url === null ? "" : <img src={postData.picture_url} alt="post"></img>}</div>
             <span>
-              {postData.nom} {postData.prenom}
+              {postData.nom} <br /> {postData.prenom}
             </span>
           </div>
           <time>modifié {date}</time>

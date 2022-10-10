@@ -33,7 +33,7 @@ const Home = () => {
       <Header userData={userData} />
       <ul>
         {postsData.map(({ post_id, content, img_url, liked, created_date, user_id, nom, prenom, picture_url }) => (
-          <div key={post_id}>
+          <div key={post_id} className="post">
             <Post
               post_id={post_id}
               content={content}

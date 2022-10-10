@@ -47,21 +47,23 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
   const { formatDate } = useCreatedDate(created_date);
 
   return (
-    <article className="post">
+    <article>
       <header className="post__header">
         <div>
-          {picture_url === null ? "" : <img src={picture_url} alt="post"></img>}
+          <div className="post__header__picture">{picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={picture_url} alt="post"></img>}</div>
           <span>
-            {nom} {prenom}
+            {nom} <br /> {prenom}
           </span>
         </div>
         <time>{formatDate}</time>
       </header>
+
       <div className="post__content">
         {delecteClick === true ? <DeleteConfirm IsConfirmed={IsConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} /> : ""}
         {img_url === null ? "" : <img src={img_url} alt="post"></img>}
         {content === "" ? "" : <p>{content}</p>}
       </div>
+
       <footer className="post__footer">
         <div className="post__footer__top">
           <span>
@@ -72,6 +74,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
             {liked} J'aime<i className="fa-solid fa-heart"></i>
           </span>
         </div>
+
         <div className={user_id === current_user_id ? "post__footer__bottom " : "post__footer__bottom post__footer__bottom--simple"}>
           {user_id === current_user_id ? (
             <div>

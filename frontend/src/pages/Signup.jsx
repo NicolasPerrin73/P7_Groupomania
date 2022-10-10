@@ -60,8 +60,8 @@ const SignUp = () => {
 
         <section className="login">
           <p>Vous avez déjà un compte?</p>
-          <Link to="/login" className="button">
-            Connexion
+          <Link to="/login">
+            <button>Connexion</button>
           </Link>
         </section>
       </div>

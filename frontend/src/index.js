@@ -6,8 +6,11 @@ import Login from "./pages/login/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/Signup";
 import AddPost from "./pages/AddPost/AddPost";
-import Account from "./pages/Account";
+import Account from "./pages/Account/Account";
 import EditPost from "./pages/Edit Post/EditPost";
+import AccountPicture from "./pages/Account/AccountPicture";
+import AccountName from "./pages/Account/AccountName";
+import AccountPassword from "./pages/Account/AccountPassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +23,9 @@ root.render(
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/editPost/:postId" element={<EditPost />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/account/picture" element={<AccountPicture />} />
+        <Route path="/account/name" element={<AccountName />} />
+        <Route path="/account/password" element={<AccountPassword />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

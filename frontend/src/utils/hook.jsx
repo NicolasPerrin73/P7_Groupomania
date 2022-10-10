@@ -3,6 +3,7 @@ import axios from "axios";
 
 export function useUserdata() {
   const [userData, setUserData] = useState([]);
+  const [profilHaveImage, setProfilHaveImage] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -11,10 +12,15 @@ export function useUserdata() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setUserData(res.data[0]))
+      .then((res) => {
+        setUserData(res.data[0]);
+        if (res.data[0].picture_url !== null) {
+          setProfilHaveImage(true);
+        }
+      })
       .catch((err) => console.log(err));
   }, []);
-  return { userData };
+  return { userData, profilHaveImage, setProfilHaveImage };
 }
 
 export function useDate() {

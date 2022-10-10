@@ -1,14 +1,13 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import AccountUserProfile from "../../components/AccountUserProfile/AccountUserProfile";
 import Header from "../../components/Header/Header";
-import { useDate, useSqlDate, useUserdata } from "../../utils/hook";
+import { useUserdata } from "../../utils/hook";
 
-const AddPost = () => {
-  const { userData } = useUserdata();
-
+const AccountPicture = () => {
+  const { userData, profilHaveImage, setProfilHaveImage } = useUserdata();
   const [selectedImage, setSelectedImage] = useState();
-  const [content, setContent] = useState("");
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -21,66 +20,63 @@ const AddPost = () => {
     setSelectedImage();
   };
 
-  const { date } = useDate();
-  const { sqlDate } = useSqlDate();
-
-  //const publish = () => publishPost(content, sqlDate, selectedImage);
+  const deleteProfilImage = () => {
+    setProfilHaveImage(false);
+  };
 
   const publish = () => {
     const token = localStorage.getItem("token");
     let formData = new FormData();
 
-    formData.append("content", content);
-    formData.append("created_date", sqlDate);
     formData.append("image", selectedImage);
+    formData.append("profilHaveImage", profilHaveImage);
+    console.log(profilHaveImage);
     axios
-      .post("http://localhost:3001/api/post", formData, {
+      .put(`http://localhost:3001/api/auth/${userData.id}/picture`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => console.log(res.data))
-      .then((window.location.href = "/"))
+      .then((window.location.href = "/account"))
       .catch((err) => console.log(err));
   };
 
   return (
     <>
       <Header userData={userData} />
-      <article className="post">
-        <header className="post__header">
-          <div>
-            <div className="post__header__picture">{userData.picture_url === null ? "" : <img src={userData.picture_url} alt="post"></img>}</div>
-            <span>
-              {userData.nom} <br /> {userData.prenom}
-            </span>
-          </div>
-          <time>{date}</time>
-        </header>
+      <main className="account">
+        <AccountUserProfile userData={userData} />
         <form className="post__content post__content--publish">
           <label htmlFor="file" className="button">
             Choisir une image
           </label>
           <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
-          {selectedImage && (
+
+          {selectedImage !== undefined ? (
             <div className="img_container">
               <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
               <button onClick={removeSelectedImage}>
                 <i className="fa-solid fa-trash"></i>
               </button>
             </div>
+          ) : profilHaveImage ? (
+            <div className="img_container">
+              <img src={userData.picture_url} alt="profil"></img>
+              <button onClick={(e) => deleteProfilImage()}>
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          ) : (
+            ""
           )}
-          <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
         </form>
-        <footer className="post__footer" onClick={publish}>
-          <div className="post__footer__bottom post__footer__bottom--publish">
-            <span>Publier</span>
-          </div>
-        </footer>
-      </article>
+
+        <button onClick={publish}>Enregistrer</button>
+      </main>
     </>
   );
 };
 
-export default AddPost;
+export default AccountPicture;

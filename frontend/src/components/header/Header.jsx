@@ -12,7 +12,10 @@ const Header = ({ userData }) => {
         <nav className="header__nav">
           <img src={logo} alt="logo" className="header__logo" />
           <Link to="/" className="header__link header__link--picture">
-            {userData.picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={userData.picture_url} alt="de profil"></img>}
+            <div>{userData.picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={userData.picture_url} alt="de profil"></img>}</div>
+            <span>
+              {userData.nom} <br /> {userData.prenom}
+            </span>
           </Link>
           <div className="header__nav__link">
             <Link to="/addpost" className="header__link">

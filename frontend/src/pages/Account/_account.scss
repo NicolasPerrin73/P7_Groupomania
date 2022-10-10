@@ -1,0 +1,32 @@
+.account {
+  background-color: $color-secondary;
+  @include border-radius;
+  @include flex-column-center;
+  box-sizing: border-box;
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+
+  &__user {
+    @include flex-column-center;
+    margin: 10px;
+
+    & i {
+      font-size: 70px;
+    }
+
+    & h1 {
+      text-align: center;
+      margin: 10px;
+    }
+  }
+
+  &__settings {
+    @include flex-column-center;
+
+    & button {
+      width: auto;
+      margin-bottom: 10px;
+    }
+  }
+}

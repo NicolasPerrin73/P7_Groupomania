@@ -1,0 +1,19 @@
+.account__user {
+  & div {
+    display: flex;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+      height: 100%;
+      margin-left: auto;
+    }
+
+    & i {
+      font-size: 70px;
+      margin: auto;
+    }
+  }
+}
