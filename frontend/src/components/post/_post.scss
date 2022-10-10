@@ -26,13 +26,22 @@
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    @include flex-column-center;
+    justify-content: center;
     background-color: white;
     width: 97.5%;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 5px;
+
+    & img {
+      width: 100%;
+    }
+
+    & p {
+      align-self: flex-start;
+    }
   }
 
   &__footer {

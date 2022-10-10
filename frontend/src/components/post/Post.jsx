@@ -4,9 +4,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCreatedDate } from "../../utils/hook";
+import DeleteConfirm from "../Delete_Confirm/DeleteConfirm";
 
 const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, created_date, user_id, nom, prenom, picture_url, current_user_id }) => {
+  const [delecteClick, setdeleteClick] = useState(false);
   const [postComment, setpostComment] = useState([]);
+  const [IsConfirmed, setIsConfirmed] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,18 +24,25 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
   }, [post_id]);
 
   const deletePost = () => {
-    const token = localStorage.getItem("token");
-    axios
-      .delete(`http://localhost:3001/api/post/${post_id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setDeletedPost(true);
-      })
-      .catch((err) => console.log(err));
+    setdeleteClick(true);
   };
+
+  useEffect(() => {
+    if (IsConfirmed === true) {
+      const token = localStorage.getItem("token");
+      axios
+        .delete(`http://localhost:3001/api/post/${post_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setDeletedPost(true);
+          setIsConfirmed(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [IsConfirmed, post_id, setDeletedPost]);
 
   const { formatDate } = useCreatedDate(created_date);
 
@@ -48,6 +58,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
         <time>{formatDate}</time>
       </header>
       <div className="post__content">
+        {delecteClick === true ? <DeleteConfirm IsConfirmed={IsConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} /> : ""}
         {img_url === null ? "" : <img src={img_url} alt="post"></img>}
         {content === "" ? "" : <p>{content}</p>}
       </div>

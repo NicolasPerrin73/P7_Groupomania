@@ -495,13 +495,22 @@ input {
   align-self: flex-end;
 }
 .post__content {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   width: 97.5%;
   margin: auto;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.post__content img {
+  width: 100%;
+}
+.post__content p {
+  align-self: flex-start;
 }
 .post__footer__top {
   display: flex;
@@ -575,6 +584,33 @@ input {
 .post__footer__bottom--publish {
   justify-content: center;
   border: outset #fd2d01 5px;
+}
+
+.deleteConfirm_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: auto;
+  position: absolute;
+  background-color: #ffd7d7;
+  border-radius: 20px;
+  padding: 10px;
+  width: 70%;
+}
+.deleteConfirm_container p {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 900;
+}
+.deleteConfirm_container__button {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 10px;
+}
+.deleteConfirm_container button {
+  width: 80px;
 }
 
 /*# sourceMappingURL=index.css.map */

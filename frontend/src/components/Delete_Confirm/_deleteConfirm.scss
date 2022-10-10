@@ -1,0 +1,27 @@
+.deleteConfirm_container {
+  @include flex-column-center;
+  justify-content: space-around;
+  margin: auto;
+  position: absolute;
+  background-color: $color-secondary;
+  border-radius: 20px;
+  padding: 10px;
+  width: 70%;
+
+  & p {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 900;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    margin: 10px;
+  }
+
+  & button {
+    width: 80px;
+  }
+}

@@ -66,7 +66,7 @@ const EditPost = () => {
         },
       })
       .then((res) => console.log(res.data))
-      //.then((window.location.href = "/"))
+      .then((window.location.href = "/"))
       .catch((err) => console.log(err));
   };
 

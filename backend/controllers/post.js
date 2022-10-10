@@ -97,7 +97,6 @@ exports.deletePost = (req, res, next) => {
 
 exports.modifyPost = (req, res, next) => {
   const { content, created_date, postImage } = req.body;
-  console.log(typeof postImage);
   const postObject = req.file
     ? {
         imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}`,
@@ -117,7 +116,7 @@ exports.modifyPost = (req, res, next) => {
       if (postData == undefined) {
         res.status(500).json("modifyPost error: post not found at file ../controllers/post.js:line117");
       } else if (req.body.content == "") {
-        res.status(400).json("modifyPost error : can't send empty values to database at file ../controllers/comment.js:line101");
+        res.status(400).json("modifyPost error : can't send empty values to database at file ../controllers/comment.js:line119");
       } else if ((userData.is_admin == 1 && postData.user_id != req.auth.userId) || postData.user_id == req.auth.userId) {
         if (postImage == "false") {
           query = "UPDATE post SET content = ?, img_url = ? WHERE post_id = ?";
@@ -125,7 +124,7 @@ exports.modifyPost = (req, res, next) => {
           fs.unlink(`assets/${filename}`, () => {
             groupomaniaDB.query(query, [content, null, req.params.postId], function (err, results, fields) {
               if (err != null) {
-                res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line136");
+                res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line127");
               } else {
                 res.status(200).json("post modified with image deleted");
               }
@@ -135,7 +134,7 @@ exports.modifyPost = (req, res, next) => {
           query = "UPDATE post SET content = ? WHERE post_id = ?";
           groupomaniaDB.query(query, [content, req.params.postId], function (err, results, fields) {
             if (err != null) {
-              res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line125");
+              res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line137");
             } else {
               res.status(200).json("post content modified");
             }
@@ -146,7 +145,7 @@ exports.modifyPost = (req, res, next) => {
           fs.unlink(`assets/${filename}`, () => {
             groupomaniaDB.query(query, [content, postObject.imageUrl, req.params.postId], function (err, results, fields) {
               if (err != null) {
-                res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line136");
+                res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line148");
               } else {
                 res.status(200).json("post content and image modified");
               }
@@ -154,7 +153,7 @@ exports.modifyPost = (req, res, next) => {
           });
         }
       } else {
-        res.status(401).json("modifyPost error: Unauthorized request at file ../controllers/post.js:line144");
+        res.status(401).json("modifyPost error: Unauthorized request at file ../controllers/post.js:line156");
       }
     }
   });
@@ -173,7 +172,7 @@ exports.likePost = (req, res, next) => {
     if (likeValue == 1 && alreadyLike == undefined) {
       groupomaniaDB.query(likedQuery, [req.params.postId, req.params.postId, req.auth.userId], function (err, results, fields) {
         if (err != null) {
-          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line144");
+          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line175");
         } else {
           res.status(200).json("post liked");
         }
@@ -183,7 +182,7 @@ exports.likePost = (req, res, next) => {
     } else if (likeValue == 0 && alreadyLike != undefined) {
       groupomaniaDB.query(unlikedQuery, [req.params.postId, req.params.postId, req.auth.userId], function (err, results, fields) {
         if (err != null) {
-          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line154");
+          res.status(500).json("likePost error: " + err.message + " at file ../controllers/post.js:line185");
         } else {
           res.status(200).json("post unliked");
         }
