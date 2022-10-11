@@ -168,7 +168,6 @@ exports.likePost = (req, res, next) => {
   groupomaniaDB.query(postUserLikeQuery, [req.params.postId], function (err, postUserLike, fields) {
     const userAlreadyLikeArray = postUserLike.map((obj) => obj.user_id);
     const alreadyLike = userAlreadyLikeArray.find((test) => test == req.auth.userId);
-
     if (likeValue == 1 && alreadyLike == undefined) {
       groupomaniaDB.query(likedQuery, [req.params.postId, req.params.postId, req.auth.userId], function (err, results, fields) {
         if (err != null) {
@@ -187,6 +186,30 @@ exports.likePost = (req, res, next) => {
           res.status(200).json("post unliked");
         }
       });
+    } else {
+      res.status(500).json("likePost error at file ../controllers/post.js:line191");
+    }
+  });
+};
+
+exports.getLikeCount = (req, res, next) => {
+  const selectQuery = "SELECT liked FROM post WHERE post_id = ?";
+  groupomaniaDB.query(selectQuery, [req.params.postId], function (err, results, fields) {
+    if (err != null) {
+      res.status(500).json("getLike error: " + err.message + " at file ../controllers/post.js:line200");
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
+};
+
+exports.getUserLike = (req, res, next) => {
+  const selectQuery = "SELECT user_id FROM post_user_like WHERE post_id = ? AND user_id = ?";
+  groupomaniaDB.query(selectQuery, [req.params.postId, req.auth.userId], function (err, results, fields) {
+    if (err != null) {
+      res.status(500).json("getLike error: " + err.message + " at file ../controllers/post.js:line211");
+    } else {
+      res.status(200).json(results);
     }
   });
 };

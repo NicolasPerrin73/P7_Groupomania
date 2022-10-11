@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -10,7 +11,11 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
   const [delecteClick, setdeleteClick] = useState(false);
   const [postComment, setpostComment] = useState([]);
   const [IsConfirmed, setIsConfirmed] = useState(false);
+  const [likeValue, setLikeValue] = useState();
+  const [likeCount, setLikeCount] = useState();
+  const [likeClick, setLikeClick] = useState(false);
 
+  // GET COMMENTS FOR THIS POST
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -27,6 +32,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
     setdeleteClick(true);
   };
 
+  // DELETE THIS POST
   useEffect(() => {
     if (IsConfirmed === true) {
       const token = localStorage.getItem("token");
@@ -46,6 +52,71 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
 
   const { formatDate } = useCreatedDate(created_date);
 
+  // LIKE POST
+  const like = async (e) => {
+    if (likeValue === 1) {
+      setLikeValue(0);
+      setLikeClick(true);
+    } else if (likeValue === 0) {
+      setLikeValue(1);
+      setLikeClick(true);
+    }
+  };
+
+  // LIKE POST ONLY ON STATE UPDATE
+  useEffect(() => {
+    if (likeClick === true) {
+      const token = localStorage.getItem("token");
+      axios
+        .post(
+          `http://localhost:3001/api/post/${post_id}/like`,
+          { like: likeValue },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+      setLikeClick(false);
+    } else {
+      // Do nothing
+    }
+  }, [likeValue, post_id, likeClick]);
+
+  // GET LIKE COUNT
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`http://localhost:3001/api/post/${post_id}/like`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setLikeCount(res.data.liked))
+      .catch((err) => console.log(err));
+  }, [likeValue, post_id, likeClick]);
+
+  // GET USER LIKED
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`http://localhost:3001/api/post/${post_id}/like/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.length === 0) {
+          setLikeValue(0);
+        } else if (res.data.length !== 0) {
+          setLikeValue(1);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [likeValue, post_id]);
+
   return (
     <article>
       <header className="post__header">
@@ -59,7 +130,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
       </header>
 
       <div className="post__content">
-        {delecteClick === true ? <DeleteConfirm IsConfirmed={IsConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} /> : ""}
+        {delecteClick === true ? <DeleteConfirm IsConfirmed={IsConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} deleteText={"ce post"} /> : ""}
         {img_url === null ? "" : <img src={img_url} alt="post"></img>}
         {content === "" ? "" : <p>{content}</p>}
       </div>
@@ -71,7 +142,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
             {postComment.length} {postComment.length > 1 ? "commentaires" : "commentaire"}
           </span>
           <span>
-            {liked} J'aime<i className="fa-solid fa-heart"></i>
+            {likeCount} J'aime<i className="fa-solid fa-heart"></i>
           </span>
         </div>
 
@@ -86,7 +157,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, liked, c
           ) : (
             ""
           )}
-          <span>
+          <span onClick={(e) => like(e)} className={likeValue === 1 ? "post__footer__bottom--liked" : ""}>
             <i className="fa-solid fa-thumbs-up"></i>
           </span>
         </div>

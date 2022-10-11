@@ -1,12 +1,14 @@
 import React from "react";
 
-const DeleteConfirm = ({ IsConfirmed, setIsConfirmed, setdeleteClick }) => {
+const DeleteConfirm = ({ IsConfirmed, setIsConfirmed, setdeleteClick, deleteText }) => {
   return (
     <>
-      <div className="deleteConfirm_container">
-        <p>Voulez vous vraiment supprimer ce post?</p>
+      <div className={deleteText === "ce post" ? "deleteConfirm_container" : "deleteConfirm_container deleteConfirm_container--relative"}>
+        <p>Voulez vous vraiment supprimer {deleteText}?</p>
         <div className="deleteConfirm_container__button">
-          <button onClick={(e) => setIsConfirmed(true)}>OUI</button>
+          <button onClick={(e) => setIsConfirmed(true)} className="button--red">
+            OUI
+          </button>
           <button onClick={(e) => setdeleteClick(false)}>NON</button>
         </div>
       </div>

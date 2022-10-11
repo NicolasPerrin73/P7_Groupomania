@@ -141,6 +141,7 @@ exports.modifyUserPicture = (req, res, next) => {
 
 exports.modifyUserName = (req, res, next) => {
   const updateQuery = "UPDATE user SET nom = ?, prenom = ? WHERE id = ?";
+  console.log(req.body.firstName);
   groupomaniaDB.query(updateQuery, [req.body.firstName, req.body.lastName, req.auth.userId], function (err, results, fields) {
     if (err != null) {
       res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line133");

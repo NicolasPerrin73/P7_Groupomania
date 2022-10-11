@@ -20,6 +20,8 @@ router.post("/", auth, multer, postCtrl.createPost);
 router.delete("/:postId", auth, postCtrl.deletePost);
 router.put("/:postId", auth, multer, postCtrl.modifyPost);
 router.post("/:postId/like", auth, postCtrl.likePost);
+router.get("/:postId/like", auth, postCtrl.getLikeCount);
+router.get("/:postId/like/user", auth, postCtrl.getUserLike);
 
 //Endpoints for comment
 router.get("/:postId/comment", auth, commentCtrl.getComments);

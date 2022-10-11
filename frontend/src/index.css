@@ -484,6 +484,7 @@ input {
 }
 .header__link--picture div {
   min-width: 70px;
+  width: 70px;
   height: 70px;
   border-radius: 50%;
   overflow: hidden;
@@ -590,6 +591,9 @@ input {
 .post__footer__bottom--simple {
   justify-content: flex-end;
 }
+.post__footer__bottom--liked {
+  color: #4e5166;
+}
 
 #file {
   display: none;
@@ -646,6 +650,9 @@ input {
   border-radius: 20px;
   padding: 10px;
   width: 70%;
+}
+.deleteConfirm_container--relative {
+  position: relative;
 }
 .deleteConfirm_container p {
   font-size: 24px;

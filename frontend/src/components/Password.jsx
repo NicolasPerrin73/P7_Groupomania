@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const Password = ({ password, setPassword }) => {
+const Password = ({ password, setPassword, current }) => {
   const passwordRegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})");
 
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
@@ -32,7 +32,7 @@ const Password = ({ password, setPassword }) => {
 
   return (
     <>
-      <label htmlFor="password">Mot de passe</label>
+      <label htmlFor="password">Mot de passe {current === undefined ? "" : current}</label>
       <div className="form__password">
         <input name="password" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
