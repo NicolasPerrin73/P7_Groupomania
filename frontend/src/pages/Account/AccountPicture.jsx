@@ -5,32 +5,54 @@ import AccountUserProfile from "../../components/AccountUserProfile/AccountUserP
 import Header from "../../components/Header/Header";
 import { useUserdata } from "../../utils/hook";
 
+/**
+ *Component to change user picture
+ * @return {*}
+ */
 const AccountPicture = () => {
+  //Custom Hook
   const { userData, profilHaveImage, setProfilHaveImage } = useUserdata();
+
+  //Component state
   const [selectedImage, setSelectedImage] = useState();
 
+  /**
+   *Captute Onclick and add file to SelectedImage state
+   * @param {*} e
+   */
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
     }
   };
 
+  /**
+   *Capture OnClick and remove file of memory
+   *and reinitializing selectImage state
+   */
   const removeSelectedImage = () => {
     URL.revokeObjectURL(selectedImage);
     setSelectedImage();
   };
 
+  /**
+   *Capture OnClick and delete current image
+   */
   const deleteProfilImage = () => {
     setProfilHaveImage(false);
   };
 
+  /**
+   *Capture onClick to publish post modification
+   *Send selectImage,profilHaveImage to backend
+   *account redirection
+   */
   const publish = () => {
     const token = localStorage.getItem("token");
     let formData = new FormData();
 
     formData.append("image", selectedImage);
     formData.append("profilHaveImage", profilHaveImage);
-    console.log(profilHaveImage);
     axios
       .put(`http://localhost:3001/api/auth/${userData.id}/picture`, formData, {
         headers: {
@@ -46,12 +68,15 @@ const AccountPicture = () => {
   return (
     <>
       <Header userData={userData} />
+
       <main className="account">
         <AccountUserProfile userData={userData} />
+
         <form className="post__content post__content--publish">
           <label htmlFor="file" className="button">
             Choisir une image
           </label>
+
           <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
 
           {selectedImage !== undefined ? (

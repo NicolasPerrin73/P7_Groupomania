@@ -4,28 +4,45 @@ import { useState } from "react";
 import Header from "../../components/Header/Header";
 import { useDate, useSqlDate, useUserdata } from "../../utils/hook";
 
+/**
+ *Component to add post
+ * @return {*}
+ */
 const AddPost = () => {
+  //Custom Hook
   const { userData } = useUserdata();
+  const { date } = useDate();
+  const { sqlDate } = useSqlDate();
 
+  //Component State
   const [selectedImage, setSelectedImage] = useState();
   const [content, setContent] = useState("");
 
+  /**
+   *Captute Onclick and add file to SelectedImage state
+   * @param {*} e
+   */
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
     }
   };
 
+  /**
+   *Capture OnClick and remove file of memory
+   *and reinitializing selectImage state
+   */
   const removeSelectedImage = () => {
     URL.revokeObjectURL(selectedImage);
     setSelectedImage();
   };
 
-  const { date } = useDate();
-  const { sqlDate } = useSqlDate();
-
   //const publish = () => publishPost(content, sqlDate, selectedImage);
 
+  /**
+   *Capture OnClick and add post
+   *Send states content,sqlDate,selectedImage to backend
+   */
   const publish = () => {
     const token = localStorage.getItem("token");
     let formData = new FormData();
@@ -40,29 +57,38 @@ const AddPost = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => console.log(res.data))
-      .then((window.location.href = "/"))
+      .then((res) => {
+        console.log(res.data);
+        window.location.href = "/";
+      })
+
       .catch((err) => console.log(err));
   };
 
   return (
     <>
       <Header userData={userData} />
+
       <article className="post">
         <header className="post__header">
           <div>
             <div className="post__header__picture">{userData.picture_url === null ? "" : <img src={userData.picture_url} alt="post"></img>}</div>
+
             <span>
               {userData.nom} <br /> {userData.prenom}
             </span>
           </div>
+
           <time>{date}</time>
         </header>
+
         <form className="post__content post__content--publish">
           <label htmlFor="file" className="button">
             Choisir une image
           </label>
+
           <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
+
           {selectedImage && (
             <div className="img_container">
               <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
@@ -71,8 +97,10 @@ const AddPost = () => {
               </button>
             </div>
           )}
+
           <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
         </form>
+
         <footer className="post__footer" onClick={publish}>
           <div className="post__footer__bottom post__footer__bottom--publish">
             <span>Publier</span>

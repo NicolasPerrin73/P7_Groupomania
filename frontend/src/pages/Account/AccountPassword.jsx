@@ -7,14 +7,26 @@ import Password from "../../components/Password";
 import PasswordConfirm from "../../components/PasswordConfirm";
 import { useUserdata } from "../../utils/hook";
 
+/**
+ *Component to change password
+ * @return {*}
+ */
 const AccountPassword = () => {
+  //Custom Hook
   const { userData } = useUserdata();
+  //Component states
   const [currentPassword, setCurrentPassword] = useState([]);
   const [password, setPassword] = useState([]);
   const [passwordConfirm, setPasswordConfirm] = useState([]);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
   const [resStatus, setResStatus] = useState();
 
+  /**
+   *Capture OnClick to password changes
+   *Send currentPassword, password states to backend
+   *account redirection
+   *or resStatus state set to 401 if incorrect current password
+   */
   const submit = () => {
     if (password !== passwordConfirm) {
       setPasswordConfirmError(true);
@@ -47,6 +59,7 @@ const AccountPassword = () => {
 
       <main className="account">
         <AccountUserProfile userData={userData} />
+
         <form className="form">
           <Password password={currentPassword} setPassword={setCurrentPassword} current={"actuel"} />
           <Password password={password} setPassword={setPassword} />

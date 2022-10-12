@@ -76,7 +76,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.getUserData = (req, res, next) => {
-  const query = "SELECT `id`,`nom`,`prenom`,`picture_url` FROM user WHERE id = ?";
+  const query = "SELECT `id`,`nom`,`prenom`,`picture_url`,`is_admin` FROM user WHERE id = ?";
   groupomaniaDB.query(query, [req.auth.userId], function (err, userData, fields) {
     if (err != null) {
       res.status(500).json("getUserData error: " + err.message + " at file ../controllers/user.js:line82");

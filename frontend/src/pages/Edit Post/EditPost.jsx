@@ -7,16 +7,30 @@ import Header from "../../components/Header/Header";
 import { useUserdata } from "../../utils/hook";
 import { useDate, useSqlDate } from "../../utils/hook";
 
+/**
+ *Component to edit post
+ * @return {*}
+ */
 const EditPost = () => {
+  //Custom Hook
   const { userData } = useUserdata();
+  const { date } = useDate();
+  const { sqlDate } = useSqlDate();
+
+  //Hooks
   const { postId } = useParams();
+  //Component state
   const [postData, setPostData] = useState([]);
   const [content, setContent] = useState();
   const [selectedImage, setSelectedImage] = useState();
   const [postHaveImage, setPostHaveImage] = useState(false);
-  const { date } = useDate();
-  const { sqlDate } = useSqlDate();
 
+  /**
+   *Get post data
+   *add it to postData state
+   *add post content to content state
+   *change postHaveImage state if image founded
+   */
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -35,21 +49,37 @@ const EditPost = () => {
       .catch((error) => console.log(error));
   }, [postId]);
 
+  /**
+   *Captute Onclick and add file to SelectedImage state
+   * @param {*} e
+   */
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
     }
   };
 
+  /**
+   *Capture OnClick and remove file of memory
+   *and reinitializing selectImage state
+   */
   const removeSelectedImage = () => {
     URL.revokeObjectURL(selectedImage);
     setSelectedImage();
   };
 
+  /**
+   *Capture OnClick and delete current image
+   */
   const deletePostedImage = () => {
     setPostHaveImage(false);
   };
 
+  /**
+   *Publish post modification
+   *send content, sqlDate,selectedImage,postHaveImage state to backend
+   *home redirection
+   */
   const publish = () => {
     const token = localStorage.getItem("token");
     let formData = new FormData();
@@ -78,10 +108,12 @@ const EditPost = () => {
         <header className="post__header">
           <div>
             <div className="post__header__picture">{postData.picture_url === null ? "" : <img src={postData.picture_url} alt="post"></img>}</div>
+
             <span>
               {postData.nom} <br /> {postData.prenom}
             </span>
           </div>
+
           <time>modifié {date}</time>
         </header>
 
@@ -89,6 +121,7 @@ const EditPost = () => {
           <label htmlFor="file" className="button">
             Choisir une image
           </label>
+
           <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
 
           {selectedImage !== undefined ? (

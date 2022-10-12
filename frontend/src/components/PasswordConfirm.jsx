@@ -1,11 +1,25 @@
 import React from "react";
 import { useState } from "react";
 
+/**
+ *Component for password confirmation form
+ * @param {*} { passwordConfirm, setPasswordConfirm }
+ * @return {*}
+ */
 const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
+  //RegExp for password: 6 charatere minimun,1 uppercase,1 lowercase,1 digit,1 special
   const passwordRegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})");
+
+  //Component state
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const [isVisible, setIsVisible] = useState("password");
 
+  /**
+   *On focus, test password input with RegExp
+   *change passwordConfirm state if passed
+   *change passwordErrorMsg if failed
+   * @param {*} event
+   */
   const passwordValidation = (event) => {
     const testPassword = passwordRegExp.test(event);
     setIsVisible("password");
@@ -22,6 +36,9 @@ const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
     }
   };
 
+  /**
+   *On click, change input type to set password visible
+   */
   const showpassword = () => {
     if (isVisible === "password") {
       setIsVisible("text");
@@ -33,8 +50,10 @@ const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
   return (
     <>
       <label htmlFor="password">Confirmer le mot de passe</label>
+
       <div className="form__password">
         <input name="password" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
+
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
       </div>
     </>

@@ -1,13 +1,26 @@
 import React from "react";
 import { useState } from "react";
 
+/**
+ *Component for name form
+ * @param {*} { firstName, setFirstName, lastName, setLastName }
+ * @return {*}
+ */
 const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
+  //RegExp for name: no special caractere and digit, 2 caractere minimum
   const nameRegExp = new RegExp("^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$");
 
+  //Component state
   const [fistNameIsValid, setFirstNameIsValid] = useState(false);
   const [lasttNameIsValid, setLastNameIsValid] = useState(false);
   const [nameErrorMsg, setnameErrorMsg] = useState(false);
 
+  /**
+   *OnChange, test firstName input with RegExp
+   *change firstName, firstNameIsValide state if passed
+   *change nameErrorMsg if failed
+   * @param {*} event
+   */
   const firstNameValidation = (event) => {
     const testName = nameRegExp.test(event);
     if (testName === true) {
@@ -32,6 +45,12 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
     }
   };
 
+  /**
+   *OnChange, test lastName input with RegExp
+   *change lastName, lastNameIsValide state if passed
+   *change nameErrorMsg if failed
+   * @param {*} event
+   */
   const lastNameValidation = (event) => {
     const testName = nameRegExp.test(event);
     if (testName === true) {
@@ -55,13 +74,17 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
       setnameErrorMsg(true);
     }
   };
+
   return (
     <>
       <label htmlFor="firstName">Nom</label>
+
       <input name="firstName" type="text" placeholder="Nom de famille" onChange={(event) => firstNameValidation(event.target.value)} className={fistNameIsValid === true ? "" : "form__invalid"} />
 
       <label htmlFor="lastName">Prénom</label>
+
       <input name="lastName" type="text" placeholder="Prénom" onChange={(event) => lastNameValidation(event.target.value)} className={lasttNameIsValid === true ? "" : "form__invalid"} />
+
       <span className={nameErrorMsg === true ? "form__errorMessage" : "form__errorMessage--none"}>Le nom et prenom ne doivent pas contenir de caractère spéciaux</span>
     </>
   );
