@@ -44,26 +44,28 @@ const Home = () => {
     <>
       <Header userData={userData} />
 
-      <ul>
-        {postsData.map(({ post_id, content, img_url, created_date, user_id, nom, prenom, picture_url }) => (
-          <div key={post_id} className="post">
-            <Post
-              post_id={post_id}
-              content={content}
-              img_url={img_url}
-              created_date={created_date}
-              user_id={user_id}
-              nom={nom}
-              prenom={prenom}
-              picture_url={picture_url}
-              current_user_id={userData.id}
-              current_user_is_admin={userData.is_admin}
-              deletedPost={deletedPost}
-              setDeletedPost={setDeletedPost}
-            />
-          </div>
-        ))}
-      </ul>
+      <main>
+        <ul>
+          {postsData.map(({ post_id, content, img_url, created_date, user_id, nom, prenom, picture_url }) => (
+            <li key={post_id} className="post">
+              <Post
+                post_id={post_id}
+                content={content}
+                img_url={img_url}
+                created_date={created_date}
+                user_id={user_id}
+                nom={nom}
+                prenom={prenom}
+                picture_url={picture_url}
+                current_user_id={userData.id}
+                current_user_is_admin={userData.is_admin}
+                deletedPost={deletedPost}
+                setDeletedPost={setDeletedPost}
+              />
+            </li>
+          ))}
+        </ul>
+      </main>
     </>
   );
 };

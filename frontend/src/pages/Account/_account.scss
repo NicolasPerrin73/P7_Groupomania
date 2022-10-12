@@ -4,8 +4,9 @@
   @include flex-column-center;
   box-sizing: border-box;
   width: 90%;
-  margin: auto;
   padding: 20px;
+  margin: auto;
+  margin-top: 100px;
 
   &__user {
     @include flex-column-center;

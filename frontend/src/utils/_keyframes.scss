@@ -1,0 +1,63 @@
+@keyframes burgerBar1_1 {
+  0% {
+    transform: rotate(-45deg);
+    margin-top: 25px;
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes burgerBar1 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-45deg);
+    margin-top: 25px;
+  }
+}
+
+@keyframes burgerBar3_1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes burgerBar3 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes burgerBar2_1 {
+  0% {
+    transform: rotate(45deg);
+    margin-top: -7px;
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+@keyframes burgerBar2 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(45deg);
+    margin-top: -7px;
+  }
+}
+
+@keyframes navBarSlideDown {
+  0% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY((0px));
+  }
+}

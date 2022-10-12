@@ -4,9 +4,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  box-sizing: border-box; /* Opera/IE 8+ */
-  -moz-box-sizing: border-box; /* Firefox, autres Gecko */
-  -webkit-box-sizing: border-box; /* Safari/Chrome, autres WebKit */
+  box-sizing: border-box !important; /* Opera/IE 8+ */
+  -moz-box-sizing: border-box !important; /* Firefox, autres Gecko */
+  -webkit-box-sizing: border-box !important; /* Safari/Chrome, autres WebKit */
+}
+
+main {
+  margin-top: 100px;
 }
 
 p {
@@ -39,4 +43,8 @@ a:visited {
 
 ul {
   padding: 0;
+}
+
+.hidden {
+  display: none;
 }

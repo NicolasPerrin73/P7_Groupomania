@@ -68,45 +68,46 @@ const AddPost = () => {
   return (
     <>
       <Header userData={userData} />
+      <main>
+        <article className="post">
+          <header className="post__header">
+            <div>
+              <div className="post__header__picture">{userData.picture_url === null ? "" : <img src={userData.picture_url} alt="post"></img>}</div>
 
-      <article className="post">
-        <header className="post__header">
-          <div>
-            <div className="post__header__picture">{userData.picture_url === null ? "" : <img src={userData.picture_url} alt="post"></img>}</div>
-
-            <span>
-              {userData.nom} <br /> {userData.prenom}
-            </span>
-          </div>
-
-          <time>{date}</time>
-        </header>
-
-        <form className="post__content post__content--publish">
-          <label htmlFor="file" className="button">
-            Choisir une image
-          </label>
-
-          <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
-
-          {selectedImage && (
-            <div className="img_container">
-              <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
-              <button onClick={removeSelectedImage}>
-                <i className="fa-solid fa-trash"></i>
-              </button>
+              <span>
+                {userData.nom} <br /> {userData.prenom}
+              </span>
             </div>
-          )}
 
-          <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
-        </form>
+            <time>{date}</time>
+          </header>
 
-        <footer className="post__footer" onClick={publish}>
-          <div className="post__footer__bottom post__footer__bottom--publish">
-            <span>Publier</span>
-          </div>
-        </footer>
-      </article>
+          <form className="post__content post__content--publish">
+            <label htmlFor="file" className="button">
+              Choisir une image
+            </label>
+
+            <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
+
+            {selectedImage && (
+              <div className="img_container">
+                <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
+                <button onClick={removeSelectedImage}>
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            )}
+
+            <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
+          </form>
+
+          <footer className="post__footer" onClick={publish}>
+            <div className="post__footer__bottom post__footer__bottom--publish">
+              <span>Publier</span>
+            </div>
+          </footer>
+        </article>
+      </main>
     </>
   );
 };
