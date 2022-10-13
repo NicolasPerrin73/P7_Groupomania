@@ -69,7 +69,7 @@ const AddPost = () => {
     <>
       <Header userData={userData} />
       <main>
-        <article className="post">
+        <article className="post post--appear">
           <header className="post__header">
             <div>
               <div className="post__header__picture">{userData.picture_url === null ? "" : <img src={userData.picture_url} alt="post"></img>}</div>
@@ -101,10 +101,8 @@ const AddPost = () => {
             <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
           </form>
 
-          <footer className="post__footer" onClick={publish}>
-            <div className="post__footer__bottom post__footer__bottom--publish">
-              <span>Publier</span>
-            </div>
+          <footer className="post__footer post__footer__bottom--publish" onClick={publish}>
+            <span>Publier</span>
           </footer>
         </article>
       </main>

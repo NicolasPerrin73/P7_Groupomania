@@ -57,7 +57,6 @@ const Header = ({ userData }) => {
             <Link to="/account" className="header__link">
               <i className="fa-solid fa-circle-user"></i>Profil
             </Link>
-
             <Link to="/login" className="header__link" onClick={clearLocalStorage}>
               <i className="fa-solid fa-right-from-bracket"></i>Deconnexion
             </Link>

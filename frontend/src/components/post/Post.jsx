@@ -169,31 +169,20 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
         {content === "" ? "" : <p>{content}</p>}
       </div>
 
-      <footer className="post__footer">
-        <div className="post__footer__top">
-          <span>
-            <i className="fa-solid fa-comment-dots"></i>
-            {postComment.length} {postComment.length > 1 ? "commentaires" : "commentaire"}
-          </span>
-
-          <span>
-            {likeCount} J'aime<i className="fa-solid fa-heart"></i>
-          </span>
-        </div>
-
-        <div className={user_id === current_user_id || current_user_is_admin === 1 ? "post__footer__bottom " : "post__footer__bottom post__footer__bottom--simple"}>
-          {user_id === current_user_id || current_user_is_admin === 1 ? (
-            <div>
-              <i className="fa-solid fa-trash" onClick={deletePost}></i>
-              <Link to={`/editPost/${post_id}`}>
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )}
-
-          <span onClick={(e) => like(e)} className={likeValue === 1 ? "post__footer__bottom--liked" : ""}>
+      <footer className={user_id === current_user_id || current_user_is_admin === 1 ? "post__footer " : "post__footer post__footer--simple"}>
+        {user_id === current_user_id || current_user_is_admin === 1 ? (
+          <div>
+            <i className="fa-solid fa-trash" onClick={deletePost}></i>
+            <Link to={`/editPost/${post_id}`}>
+              <i className="fa-solid fa-pen-to-square"></i>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+        <div>
+          <span className="post__footer__like">{likeCount} J'aime</span>
+          <span onClick={(e) => like(e)} className={likeValue === 1 ? "post__footer__icon post__footer__icon--liked" : "post__footer__icon"}>
             <i className="fa-solid fa-thumbs-up"></i>
           </span>
         </div>

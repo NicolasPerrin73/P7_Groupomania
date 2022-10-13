@@ -8,6 +8,12 @@
   width: 95%;
   max-width: 500px;
   border-radius: 20px;
+  transform: translateY(900px);
+  transition: transform 300ms cubic-bezier(0.2, 0.74, 0.34, 1.01);
+
+  &--appear {
+    transform: translateY(0);
+  }
 
   &__header {
     display: flex;
@@ -70,40 +76,37 @@
   }
 
   &__footer {
-    &__top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: $color-primary;
+    color: white;
+    border-radius: 0px 0px 20px 20px;
+    padding: 4px;
+    font-size: 24px;
+    & i {
       padding: 3px;
-      background-color: lighten($color: $color-tertiary, $amount: 35);
-      color: white;
+      margin-right: 4px;
+      margin-left: 4px;
+    }
 
+    &--simple {
+      justify-content: flex-end;
+    }
+
+    &__icon {
       & i {
-        padding: 3px;
-        font-size: 24px;
+        animation: unlike 200ms ease-in-out both;
+      }
+      &--liked {
+        & i {
+          animation: like 200ms ease-in-out both;
+          color: $color-tertiary;
+        }
       }
     }
-    &__bottom {
-      display: flex;
-      justify-content: space-between;
-      background-color: $color-primary;
-      color: white;
-      border-radius: 0px 0px 20px 20px;
-      padding: 4px;
-      font-size: 24px;
-      & i {
-        padding: 3px;
-        margin-right: 4px;
-        margin-left: 4px;
-      }
 
-      &--simple {
-        justify-content: flex-end;
-      }
-
-      &--liked {
-        color: $color-tertiary;
-      }
+    &__like {
+      font-size: 20px;
     }
   }
 }
