@@ -101,7 +101,7 @@ const AddPost = () => {
             <textarea rows="5" placeholder="Ecrivez ici..." onChange={(e) => setContent(e.target.value)} />
           </form>
 
-          <footer className="post__footer post__footer__bottom--publish" onClick={publish}>
+          <footer className="post__footer post__footer--publish" onClick={publish}>
             <span>Publier</span>
           </footer>
         </article>

@@ -827,7 +827,7 @@ input {
   right: 0;
 }
 
-.post__footer__bottom--publish {
+.post__footer--publish {
   justify-content: center;
   border: outset #fd2d01 5px;
 }

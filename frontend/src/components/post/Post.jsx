@@ -14,26 +14,10 @@ import DeleteConfirm from "../Delete_Confirm/DeleteConfirm";
  */
 const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_date, user_id, nom, prenom, picture_url, current_user_id, current_user_is_admin }) => {
   const [delecteClick, setdeleteClick] = useState(false);
-  const [postComment, setpostComment] = useState([]);
   const [IsConfirmed, setIsConfirmed] = useState(false);
   const [likeValue, setLikeValue] = useState();
   const [likeCount, setLikeCount] = useState();
   const [likeClick, setLikeClick] = useState(false);
-
-  /**
-   * Get comments for this post in state postComment
-   */
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-      .get(`http://localhost:3001/api/post/${post_id}/comment`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setpostComment(res.data))
-      .catch((err) => console.log(err));
-  }, [post_id]);
 
   /**
    *Catch OnClick in state for post deleting confirmation
