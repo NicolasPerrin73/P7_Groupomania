@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import logo from "../../assets/groupomania-logo.png";
+import logo from "../../assets/icon-left-font-monochrome-black.png";
 import Email from "../../components/Email";
 import Password from "../../components/Password";
 import axios from "axios";

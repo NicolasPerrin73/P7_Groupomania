@@ -34,7 +34,7 @@ const Header = ({ userData }) => {
           <div className="header__nav__top">
             <img src={logo} alt="logo" className="header__logo" />
 
-            <Link to="/" className="header__link header__link--picture">
+            <Link to="/" className="header__link header__link--picture" title="Acceuil">
               <div>{userData.picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={userData.picture_url} alt="de profil"></img>}</div>
 
               <span>
@@ -50,6 +50,11 @@ const Header = ({ userData }) => {
           </div>
 
           <div className={isHidden ? "header__nav__link header__nav__link--up" : "header__nav__link header__nav__link--down"}>
+            <Link to="/" className="header__link" title="accueil">
+              <i className="fa-solid fa-house"></i>
+              Accueil
+            </Link>
+
             <Link to="/addpost" className="header__link">
               <i className="fa-solid fa-circle-plus"></i>Publier
             </Link>

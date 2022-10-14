@@ -6,10 +6,18 @@
   margin-bottom: 10px;
   background-color: $color-secondary;
   width: 95%;
-  max-width: 500px;
   border-radius: 20px;
   transform: translateY(900px);
   transition: transform 300ms cubic-bezier(0.2, 0.74, 0.34, 1.01);
+
+  @include tablet-only {
+    max-width: 500px;
+  }
+
+  @include desktop-only {
+    max-width: 40%;
+    margin-bottom: 20px;
+  }
 
   &--appear {
     transform: translateY(0);
@@ -48,16 +56,26 @@
 
     & span {
       font-size: 18px;
+
+      @include desktop-only {
+        font-size: 24px;
+      }
     }
 
     & time {
       align-self: flex-end;
       text-align: end;
       width: 28%;
+
+      @include desktop-only {
+        width: 40%;
+        font-size: 22px;
+      }
     }
   }
 
   &__content {
+    position: relative;
     @include flex-column-center;
     justify-content: center;
     background-color: white;
@@ -66,12 +84,34 @@
     margin-top: 5px;
     margin-bottom: 5px;
 
+    @include desktop-only {
+      font-size: 20px;
+    }
+
     & img {
       width: 100%;
     }
 
     & p {
+      position: relative;
       align-self: flex-start;
+    }
+
+    &--long {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 10;
+    }
+
+    &--See-more {
+      position: relative;
+      align-self: flex-end;
+      cursor: pointer;
+      background-color: $color-tertiary;
+      color: white;
+      border-radius: 20px;
+      padding: 3px;
     }
   }
 
@@ -83,6 +123,10 @@
     border-radius: 0px 0px 20px 20px;
     padding: 4px;
     font-size: 24px;
+
+    @include desktop-only {
+      font-size: 30px;
+    }
     & i {
       padding: 3px;
       margin-right: 4px;
@@ -107,6 +151,10 @@
 
     &__like {
       font-size: 20px;
+
+      @include desktop-only {
+        font-size: 24px;
+      }
     }
   }
 }

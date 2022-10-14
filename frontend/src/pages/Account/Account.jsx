@@ -82,6 +82,7 @@ const Account = () => {
           )}
         </section>
       </main>
+      <div className="left-decoration"></div>
     </>
   );
 };

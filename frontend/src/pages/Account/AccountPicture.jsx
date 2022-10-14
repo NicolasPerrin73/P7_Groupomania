@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AccountUserProfile from "../../components/AccountUserProfile/AccountUserProfile";
 import Header from "../../components/Header/Header";
 import { useUserdata } from "../../utils/hook";
@@ -70,6 +71,10 @@ const AccountPicture = () => {
       <Header userData={userData} />
 
       <main className="account">
+        <Link to="/account" className="account__back">
+          <i className="fa-solid fa-left-long"></i>
+        </Link>
+
         <AccountUserProfile userData={userData} />
 
         <form className="post__content post__content--publish">
@@ -87,7 +92,7 @@ const AccountPicture = () => {
               </button>
             </div>
           ) : profilHaveImage ? (
-            <div className="img_container">
+            <div className="img_container img_container--profile">
               <img src={userData.picture_url} alt="profil"></img>
               <button onClick={(e) => deleteProfilImage()}>
                 <i className="fa-solid fa-trash"></i>
@@ -100,6 +105,7 @@ const AccountPicture = () => {
 
         <button onClick={publish}>Enregistrer</button>
       </main>
+      <div className="left-decoration"></div>
     </>
   );
 };

@@ -1,6 +1,15 @@
 .login_container {
   @include flex-column-center;
   height: 100%;
+
+  @include tablet-only {
+    width: 80%;
+    margin: auto;
+  }
+
+  @include desktop-only {
+    width: 60%;
+  }
 }
 
 .logo {
@@ -16,6 +25,8 @@
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 30px;
+  box-shadow: -3px 3px 4px black;
+  border: solid 5px darken($color-secondary, 5);
 
   & p {
     text-align: center;

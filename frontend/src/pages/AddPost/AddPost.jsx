@@ -106,6 +106,7 @@ const AddPost = () => {
           </footer>
         </article>
       </main>
+      <div className="left-decoration"></div>
     </>
   );
 };

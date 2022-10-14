@@ -7,10 +7,19 @@ body {
   box-sizing: border-box !important; /* Opera/IE 8+ */
   -moz-box-sizing: border-box !important; /* Firefox, autres Gecko */
   -webkit-box-sizing: border-box !important; /* Safari/Chrome, autres WebKit */
+
+  max-width: 1920px;
+  min-width: 320px;
+
+  background-color: lighten($color-tertiary, $amount: 50);
 }
 
 main {
   margin-top: 100px;
+
+  @include desktop-only {
+    margin-top: 10px;
+  }
 }
 
 p {
@@ -47,4 +56,17 @@ ul {
 
 .hidden {
   display: none;
+}
+
+.left-decoration {
+  display: none;
+  @include desktop-only {
+    display: block;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 200px;
+    background-color: $color-tertiary;
+  }
 }

@@ -85,6 +85,8 @@ const Home = () => {
           )}
         </ul>
       </main>
+
+      <div className="left-decoration"></div>
     </>
   );
 };

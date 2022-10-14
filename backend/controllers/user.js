@@ -100,7 +100,9 @@ exports.modifyUserPicture = (req, res, next) => {
   const updateQuery = "UPDATE user SET picture_url = ? WHERE id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId], function (err, userData, fields) {
     if (err != null) {
-      res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line102");
+      res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line103");
+    } else if (userData[0].picture_url == null) {
+      res.status(500).json("modifyPictureUser error: picture not found at file ../controllers/user.js:line105");
     } else {
       if (req.file === undefined && profilHaveImage === "true") {
         res.status(200).json("User picture not modified");
@@ -109,7 +111,7 @@ exports.modifyUserPicture = (req, res, next) => {
         fs.unlink(`assets/${filename}`, () => {
           groupomaniaDB.query(updateQuery, [null, req.auth.userId], function (err, results, fields) {
             if (err != null) {
-              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line118");
+              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line114");
             } else {
               res.status(200).json("User picture deleted");
             }
@@ -118,7 +120,7 @@ exports.modifyUserPicture = (req, res, next) => {
       } else if (userData[0].picture_url == null) {
         groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
           if (err != null) {
-            res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line108");
+            res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line123");
           } else {
             res.status(200).json("User picture added");
           }
@@ -128,7 +130,7 @@ exports.modifyUserPicture = (req, res, next) => {
         fs.unlink(`assets/${filename}`, () => {
           groupomaniaDB.query(updateQuery, [postObject.imageUrl, req.auth.userId], function (err, results, fields) {
             if (err != null) {
-              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line118");
+              res.status(500).json("modifyPictureUser error: " + err.message + " at file ../controllers/user.js:line133");
             } else {
               res.status(200).json("User picture modified");
             }
@@ -144,7 +146,7 @@ exports.modifyUserName = (req, res, next) => {
   console.log(req.body.firstName);
   groupomaniaDB.query(updateQuery, [req.body.firstName, req.body.lastName, req.auth.userId], function (err, results, fields) {
     if (err != null) {
-      res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line133");
+      res.status(500).json("modifyUserName error: " + err.message + " at file ../controllers/user.js:line149");
     } else {
       res.status(200).json("User name updated");
     }
@@ -155,7 +157,7 @@ exports.modifyUserPassword = (req, res, next) => {
   const selectQuery = "SELECT password FROM user WHERE id = ?";
   groupomaniaDB.query(selectQuery, [req.auth.userId], function (err, userPassword, fields) {
     if (err != null) {
-      res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line144");
+      res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line160");
     } else {
       bcrypt
         .compare(req.body.oldPassword, userPassword[0].password)
@@ -169,19 +171,19 @@ exports.modifyUserPassword = (req, res, next) => {
               .then((hash) => {
                 groupomaniaDB.query(updateQuery, [hash, req.auth.userId], function (err, results, fields) {
                   if (err != null) {
-                    res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line158");
+                    res.status(500).json("modifyUserPassword error: " + err.message + " at file ../controllers/user.js:line174");
                   } else {
                     res.status(200).json("Password updated");
                   }
                 });
               })
               .catch((error) => {
-                res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line165");
+                res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line181");
               });
           }
         })
         .catch((error) => {
-          res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line170");
+          res.status(500).json("bcrypt error: " + error + " at file ../controllers/user.js:line186");
         });
     }
   });
@@ -191,7 +193,7 @@ exports.deleteUser = (req, res, next) => {
   const deleteQuery = "DELETE FROM user Where id = ?";
   groupomaniaDB.query(deleteQuery, [req.auth.userId], function (err, results, fields) {
     if (err != null) {
-      res.status(500).json("deleteUser error: " + err.message + " at file ../controllers/user.js:line180");
+      res.status(500).json("deleteUser error: " + err.message + " at file ../controllers/user.js:line196");
     } else {
       res.status(200).json("User deleted");
     }

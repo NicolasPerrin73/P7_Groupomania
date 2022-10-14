@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AccountUserProfile from "../../components/AccountUserProfile/AccountUserProfile";
 import Header from "../../components/Header/Header";
 import Name from "../../components/Name";
@@ -44,6 +45,10 @@ const AccountName = () => {
       <Header userData={userData} />
 
       <main className="account">
+        <Link to="/account" className="account__back">
+          <i className="fa-solid fa-left-long"></i>
+        </Link>
+
         <AccountUserProfile userData={userData} />
 
         <form className="form">
@@ -52,6 +57,7 @@ const AccountName = () => {
 
         <button onClick={submit}>Enregistrer</button>
       </main>
+      <div className="left-decoration"></div>
     </>
   );
 };

@@ -18,7 +18,8 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
   const [likeValue, setLikeValue] = useState();
   const [likeCount, setLikeCount] = useState();
   const [likeClick, setLikeClick] = useState(false);
-
+  const [isTooLong, setIsTooLong] = useState(false);
+  const [isDeploy, setIsDeploy] = useState(false);
   /**
    *Catch OnClick in state for post deleting confirmation
    */
@@ -131,6 +132,12 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
       .catch((err) => console.log(err));
   }, [likeValue, post_id]);
 
+  useEffect(() => {
+    if (content.length > 450) {
+      setIsTooLong(true);
+    }
+  }, [content.length]);
+
   return (
     <article>
       <header className="post__header">
@@ -150,7 +157,33 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
 
         {img_url === null ? "" : <img src={img_url} alt="post"></img>}
 
-        {content === "" ? "" : <p>{content}</p>}
+        {content === "" ? "" : <p className={isTooLong ? "post__content--long" : ""}>{content}</p>}
+        {isDeploy ? (
+          <span
+            className="post__content--See-more"
+            onClick={(e) => {
+              setIsTooLong(true);
+              setIsDeploy(false);
+            }}
+          >
+            Voir moins
+          </span>
+        ) : (
+          ""
+        )}
+        {isTooLong ? (
+          <span
+            className="post__content--See-more"
+            onClick={(e) => {
+              setIsTooLong(false);
+              setIsDeploy(true);
+            }}
+          >
+            Voir plus
+          </span>
+        ) : (
+          ""
+        )}
       </div>
 
       <footer className={user_id === current_user_id || current_user_is_admin === 1 ? "post__footer " : "post__footer post__footer--simple"}>
