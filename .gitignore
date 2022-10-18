@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # assets folder
-assets/
+backend/assets/
 
 # custom script
 script/
