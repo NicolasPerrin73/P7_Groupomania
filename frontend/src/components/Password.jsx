@@ -48,10 +48,16 @@ const Password = ({ password, setPassword, current }) => {
 
   return (
     <>
-      <label htmlFor="password">Mot de passe {current === undefined ? "" : current}</label>
+      <label htmlFor={current === "actuel" ? "currentPassword" : "password"}>Mot de passe {current === undefined ? "" : current}</label>
 
       <div className="form__password">
-        <input name="password" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
+        <input
+          id={current === "actuel" ? "currentPassword" : "password"}
+          type={isVisible}
+          placeholder="P@ssw0rd"
+          onBlur={(event) => passwordValidation(event.target.value)}
+          className={passwordErrorMsg === "" ? "" : "form__invalid"}
+        />
 
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
       </div>

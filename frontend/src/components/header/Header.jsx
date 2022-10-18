@@ -32,7 +32,7 @@ const Header = ({ userData }) => {
       <header className="header">
         <nav className="header__nav">
           <div className="header__nav__top">
-            <img src={logo} alt="logo" className="header__logo" />
+            <img src={logo} alt="logo de groupomania" className="header__logo" />
 
             <Link to="/" className="header__link header__link--picture" title="Acceuil">
               <div>{userData.picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={userData.picture_url} alt="de profil"></img>}</div>

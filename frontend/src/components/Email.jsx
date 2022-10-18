@@ -36,7 +36,7 @@ const Email = ({ email, setEmail }) => {
     <>
       <label htmlFor="email">Identifiant</label>
 
-      <input name="email" type="email" placeholder="email" onBlur={(event) => emailValidation(event.target.value)} className={emailErrorMsg === "" ? "" : "form__invalid"} />
+      <input id="email" type="email" placeholder="email" onBlur={(event) => emailValidation(event.target.value)} className={emailErrorMsg === "" ? "" : "form__invalid"} />
 
       <span className="form__errorMessage">{emailErrorMsg}</span>
     </>

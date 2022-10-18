@@ -4,7 +4,7 @@
   justify-content: center;
   margin: auto;
   margin-bottom: 10px;
-  background-color: $color-secondary;
+  background-color: $color-lighten-tertiary;
   width: 95%;
   border-radius: 20px;
   transform: translateY(900px);
@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background-color: $color-primary;
+    background-color: $color-tertiary;
     border-radius: 20px 20px 0px 0px;
     color: white;
 
@@ -51,6 +51,15 @@
       & i {
         font-size: 40px;
         margin: auto;
+      }
+    }
+
+    & h2 {
+      font-size: 18px;
+      margin: 0;
+
+      @include desktop-only {
+        font-size: 24px;
       }
     }
 
@@ -118,7 +127,7 @@
   &__footer {
     display: flex;
     justify-content: space-between;
-    background-color: $color-primary;
+    background-color: $color-tertiary;
     color: white;
     border-radius: 0px 0px 20px 20px;
     padding: 4px;
@@ -131,6 +140,7 @@
       padding: 3px;
       margin-right: 4px;
       margin-left: 4px;
+      cursor: pointer;
     }
 
     &--simple {
@@ -144,7 +154,7 @@
       &--liked {
         & i {
           animation: like 200ms ease-in-out both;
-          color: $color-tertiary;
+          color: $color-primary;
         }
       }
     }

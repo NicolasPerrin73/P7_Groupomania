@@ -58,31 +58,36 @@ const AccountPassword = () => {
     <>
       <Header userData={userData} />
 
-      <main className="account">
-        <Link to="/account" className="account__back">
-          <i className="fa-solid fa-left-long"></i>
-        </Link>
+      <main>
+        <h1>Modifiez votre mot de passe</h1>
 
-        <AccountUserProfile userData={userData} />
+        <section className="account">
+          <Link to="/account" className="account__back" title="retour">
+            <i className="fa-solid fa-left-long"></i>
+          </Link>
 
-        <form className="form">
-          <Password password={currentPassword} setPassword={setCurrentPassword} current={"actuel"} />
-          <Password password={password} setPassword={setPassword} />
-          <PasswordConfirm passwordConfirm={passwordConfirm} setPasswordConfirm={setPasswordConfirm} />
+          <AccountUserProfile userData={userData} />
 
-          <div className={passwordConfirmError === false ? "form__errorMessage--none" : "form__errorMessage"}>
-            <i className="fa-sharp fa-solid fa-circle-exclamation"></i>
-            <span>Les mots de passes ne correspondent pas</span>
-          </div>
+          <form className="form">
+            <Password password={currentPassword} setPassword={setCurrentPassword} current={"actuel"} />
+            <Password password={password} setPassword={setPassword} />
+            <PasswordConfirm passwordConfirm={passwordConfirm} setPasswordConfirm={setPasswordConfirm} />
 
-          <div className={resStatus === 401 ? "form__errorMessage" : "form__errorMessage--none"}>
-            <i className="fa-sharp fa-solid fa-circle-exclamation"></i>
-            <span>Mot de passe actuel invalide</span>
-          </div>
-        </form>
+            <div className={passwordConfirmError === false ? "form__errorMessage--none" : "form__errorMessage"}>
+              <i className="fa-sharp fa-solid fa-circle-exclamation"></i>
+              <span>Les mots de passes ne correspondent pas</span>
+            </div>
 
-        <button onClick={submit}>Enregistrer</button>
+            <div className={resStatus === 401 ? "form__errorMessage" : "form__errorMessage--none"}>
+              <i className="fa-sharp fa-solid fa-circle-exclamation"></i>
+              <span>Mot de passe actuel invalide</span>
+            </div>
+          </form>
+
+          <button onClick={submit}>Enregistrer</button>
+        </section>
       </main>
+
       <div className="left-decoration"></div>
     </>
   );

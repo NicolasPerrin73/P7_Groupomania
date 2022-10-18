@@ -44,7 +44,7 @@ function Login() {
   return (
     <>
       <div className="login_container">
-        <img src={logo} alt="logo" className="logo" />
+        <img src={logo} alt="logo de groupomania" className="logo" />
 
         <section className="login">
           <h1>S'identifier</h1>

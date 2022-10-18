@@ -21,12 +21,12 @@
 .login {
   @include flex-column-center;
   width: 80%;
-  background-color: $color-secondary;
+  background-color: $color-lighten-tertiary;
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 30px;
-  box-shadow: -3px 3px 4px black;
-  border: solid 5px darken($color-secondary, 5);
+  @include box-shadow;
+  border: solid 5px lighten($color-tertiary, $amount: 45);
 
   & p {
     text-align: center;

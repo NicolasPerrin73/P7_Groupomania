@@ -11,14 +11,27 @@ body {
   max-width: 1920px;
   min-width: 320px;
 
-  background-color: lighten($color-tertiary, $amount: 50);
+  background-color: lighten($color-secondary, $amount: 0);
 }
 
 main {
-  margin-top: 100px;
+  margin-top: 90px;
 
   @include desktop-only {
-    margin-top: 10px;
+    margin-top: 0px;
+  }
+
+  & h1 {
+    font-size: 24px;
+    background-color: $color-lighten-tertiary;
+    margin: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    @include desktop-only {
+      text-align: center;
+      font-size: 28px;
+    }
   }
 }
 

@@ -104,6 +104,7 @@ const EditPost = () => {
     <>
       <Header userData={userData} />
       <main>
+        <h1>Modifier votre post</h1>
         <article className="post post--appear">
           <header className="post__header">
             <div>

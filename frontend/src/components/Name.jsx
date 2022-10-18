@@ -79,11 +79,11 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
     <>
       <label htmlFor="firstName">Nom</label>
 
-      <input name="firstName" type="text" placeholder="Nom de famille" onChange={(event) => firstNameValidation(event.target.value)} className={fistNameIsValid === true ? "" : "form__invalid"} />
+      <input id="firstName" type="text" placeholder="Nom de famille" onChange={(event) => firstNameValidation(event.target.value)} className={fistNameIsValid === true ? "" : "form__invalid"} />
 
       <label htmlFor="lastName">Prénom</label>
 
-      <input name="lastName" type="text" placeholder="Prénom" onChange={(event) => lastNameValidation(event.target.value)} className={lasttNameIsValid === true ? "" : "form__invalid"} />
+      <input id="lastName" type="text" placeholder="Prénom" onChange={(event) => lastNameValidation(event.target.value)} className={lasttNameIsValid === true ? "" : "form__invalid"} />
 
       <span className={nameErrorMsg === true ? "form__errorMessage" : "form__errorMessage--none"}>Le nom et prenom ne doivent pas contenir de caractère spéciaux</span>
     </>

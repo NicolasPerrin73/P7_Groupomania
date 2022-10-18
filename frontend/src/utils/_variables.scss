@@ -1,6 +1,7 @@
 $color-primary: #fd2d01;
 $color-secondary: #ffd7d7;
 $color-tertiary: #4e5166;
+$color-lighten-tertiary: lighten($color-tertiary, $amount: 50);
 
 $breakpoint-tablet: 480px;
 $breakpoint-desktop: 992px;

@@ -1,5 +1,5 @@
 .account {
-  background-color: $color-secondary;
+  background-color: $color-lighten-tertiary;
   @include border-radius;
   @include flex-column-center;
   box-sizing: border-box;
@@ -8,6 +8,8 @@
   margin: auto;
   margin-top: 100px;
   gap: 10px;
+  @include box-shadow;
+  border: solid 5px lighten($color-tertiary, $amount: 45);
 
   @include desktop-only {
     width: 40%;

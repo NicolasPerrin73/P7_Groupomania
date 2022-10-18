@@ -5,8 +5,11 @@
   position: absolute;
   background-color: $color-secondary;
   border-radius: 20px;
+  border: solid 5px darken($color: $color-secondary, $amount: 10);
+  @include box-shadow;
   padding: 10px;
   width: 70%;
+  z-index: 1;
 
   &--relative {
     position: relative;

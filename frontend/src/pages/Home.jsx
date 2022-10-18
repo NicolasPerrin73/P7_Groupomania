@@ -60,6 +60,7 @@ const Home = () => {
       <Header userData={userData} postAppear={postAppear} setPostAppear={setPostAppear} />
 
       <main>
+        <h1>Fil d'actualité</h1>
         <ul>
           {isLoading ? (
             <Loader />

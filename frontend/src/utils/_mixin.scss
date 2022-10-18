@@ -11,10 +11,15 @@
   width: 135px;
   font-size: 24px;
   box-shadow: -2px 2px 3px black;
+  cursor: pointer;
 }
 
 @mixin border-radius {
   border-radius: 20px;
+}
+
+@mixin box-shadow {
+  box-shadow: -3px 3px 4px black;
 }
 
 @mixin tablet-only {

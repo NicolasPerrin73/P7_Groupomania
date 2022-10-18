@@ -49,10 +49,10 @@ const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
 
   return (
     <>
-      <label htmlFor="password">Confirmer le mot de passe</label>
+      <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
 
       <div className="form__password">
-        <input name="password" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
+        <input id="confirmPassword" type={isVisible} placeholder="P@ssw0rd" onBlur={(event) => passwordValidation(event.target.value)} className={passwordErrorMsg === "" ? "" : "form__invalid"} />
 
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
       </div>

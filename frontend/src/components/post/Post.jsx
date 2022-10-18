@@ -144,9 +144,9 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
         <div>
           <div className="post__header__picture">{picture_url === null ? <i className="fa-solid fa-circle-user"></i> : <img src={picture_url} alt="post"></img>}</div>
 
-          <span>
+          <h2>
             {nom} <br /> {prenom}
-          </span>
+          </h2>
         </div>
 
         <time>{formatDate}</time>
@@ -165,6 +165,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
               setIsTooLong(true);
               setIsDeploy(false);
             }}
+            title="voir moins"
           >
             Voir moins
           </span>
@@ -178,6 +179,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
               setIsTooLong(false);
               setIsDeploy(true);
             }}
+            title="voir plus"
           >
             Voir plus
           </span>
@@ -189,8 +191,8 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
       <footer className={user_id === current_user_id || current_user_is_admin === 1 ? "post__footer " : "post__footer post__footer--simple"}>
         {user_id === current_user_id || current_user_is_admin === 1 ? (
           <div>
-            <i className="fa-solid fa-trash" onClick={deletePost}></i>
-            <Link to={`/editPost/${post_id}`}>
+            <i className="fa-solid fa-trash" onClick={deletePost} title="supprimer le post"></i>
+            <Link to={`/editPost/${post_id}`} title="modifier le post">
               <i className="fa-solid fa-pen-to-square"></i>
             </Link>
           </div>

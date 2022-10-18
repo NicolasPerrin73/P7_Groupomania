@@ -53,33 +53,37 @@ const Account = () => {
     <>
       <Header userData={userData} />
 
-      <main className="account">
-        <AccountUserProfile userData={userData} />
+      <main>
+        <h1>Votre profil</h1>
 
-        <section className="account__settings">
-          {delecteClick === true ? <DeleteConfirm IsConfirmed={isConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} deleteText={"votre compte"} /> : ""}
+        <section className="account">
+          <AccountUserProfile userData={userData} />
 
-          {delecteClick === false ? (
-            <>
-              <Link to="/account/picture">
-                <button>Photo de profil</button>
-              </Link>
+          <nav className="account__settings">
+            {delecteClick === true ? <DeleteConfirm IsConfirmed={isConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} deleteText={"votre compte"} /> : ""}
 
-              <Link to="/account/name">
-                <button>Nom de profil</button>
-              </Link>
+            {delecteClick === false ? (
+              <>
+                <Link to="/account/picture">
+                  <button>Photo de profil</button>
+                </Link>
 
-              <Link to="/account/password">
-                <button>Mot de passe</button>
-              </Link>
+                <Link to="/account/name">
+                  <button>Nom de profil</button>
+                </Link>
 
-              <button className="button--red" onClick={deleteConfirm}>
-                Se désincrire
-              </button>
-            </>
-          ) : (
-            ""
-          )}
+                <Link to="/account/password">
+                  <button>Mot de passe</button>
+                </Link>
+
+                <button className="button--red" onClick={deleteConfirm}>
+                  Se désincrire
+                </button>
+              </>
+            ) : (
+              ""
+            )}
+          </nav>
         </section>
       </main>
       <div className="left-decoration"></div>

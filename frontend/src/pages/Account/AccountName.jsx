@@ -44,18 +44,22 @@ const AccountName = () => {
     <>
       <Header userData={userData} />
 
-      <main className="account">
-        <Link to="/account" className="account__back">
-          <i className="fa-solid fa-left-long"></i>
-        </Link>
+      <main>
+        <h1>Modifiez votre nom de profil</h1>
 
-        <AccountUserProfile userData={userData} />
+        <section className="account">
+          <Link to="/account" className="account__back" title="retour">
+            <i className="fa-solid fa-left-long"></i>
+          </Link>
 
-        <form className="form">
-          <Name firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} />
-        </form>
+          <AccountUserProfile userData={userData} />
 
-        <button onClick={submit}>Enregistrer</button>
+          <form className="form">
+            <Name firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} />
+          </form>
+
+          <button onClick={submit}>Enregistrer</button>
+        </section>
       </main>
       <div className="left-decoration"></div>
     </>

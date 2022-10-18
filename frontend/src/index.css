@@ -420,15 +420,28 @@ body {
   -webkit-box-sizing: border-box !important; /* Safari/Chrome, autres WebKit */
   max-width: 1920px;
   min-width: 320px;
-  background-color: #d5d6df;
+  background-color: #ffd7d7;
 }
 
 main {
-  margin-top: 100px;
+  margin-top: 90px;
 }
 @media screen and (min-width: 992px) {
   main {
-    margin-top: 10px;
+    margin-top: 0px;
+  }
+}
+main h1 {
+  font-size: 24px;
+  background-color: #d5d6df;
+  margin: 0;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 992px) {
+  main h1 {
+    text-align: center;
+    font-size: 28px;
   }
 }
 
@@ -443,6 +456,7 @@ button {
   width: 135px;
   font-size: 24px;
   box-shadow: -2px 2px 3px black;
+  cursor: pointer;
 }
 
 .button {
@@ -452,6 +466,7 @@ button {
   width: 135px;
   font-size: 24px;
   box-shadow: -2px 2px 3px black;
+  cursor: pointer;
 }
 .button--red {
   background-color: #fd2d01;
@@ -521,12 +536,12 @@ ul {
   flex-direction: column;
   align-items: center;
   width: 80%;
-  background-color: #ffd7d7;
+  background-color: #d5d6df;
   border-radius: 20px;
   padding: 10px;
   margin-bottom: 30px;
   box-shadow: -3px 3px 4px black;
-  border: solid 5px #ffbebe;
+  border: solid 5px #c6c8d3;
 }
 .login p {
   text-align: center;
@@ -823,7 +838,7 @@ input {
   justify-content: center;
   margin: auto;
   margin-bottom: 10px;
-  background-color: #ffd7d7;
+  background-color: #d5d6df;
   width: 95%;
   border-radius: 20px;
   transform: translateY(900px);
@@ -847,7 +862,7 @@ input {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: #fd2d01;
+  background-color: #4e5166;
   border-radius: 20px 20px 0px 0px;
   color: white;
 }
@@ -869,6 +884,15 @@ input {
 .post__header__picture i {
   font-size: 40px;
   margin: auto;
+}
+.post__header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+@media screen and (min-width: 992px) {
+  .post__header h2 {
+    font-size: 24px;
+  }
 }
 .post__header span {
   font-size: 18px;
@@ -931,7 +955,7 @@ input {
 .post__footer {
   display: flex;
   justify-content: space-between;
-  background-color: #fd2d01;
+  background-color: #4e5166;
   color: white;
   border-radius: 0px 0px 20px 20px;
   padding: 4px;
@@ -946,6 +970,7 @@ input {
   padding: 3px;
   margin-right: 4px;
   margin-left: 4px;
+  cursor: pointer;
 }
 .post__footer--simple {
   justify-content: flex-end;
@@ -955,7 +980,7 @@ input {
 }
 .post__footer__icon--liked i {
   animation: like 200ms ease-in-out both;
-  color: #4e5166;
+  color: #fd2d01;
 }
 .post__footer__like {
   font-size: 20px;
@@ -1007,7 +1032,7 @@ input {
 
 .post__footer--publish {
   justify-content: center;
-  border: outset #fd2d01 5px;
+  border: outset #4e5166 5px;
 }
 
 .deleteConfirm_container {
@@ -1019,8 +1044,11 @@ input {
   position: absolute;
   background-color: #ffd7d7;
   border-radius: 20px;
+  border: solid 5px #ffa4a4;
+  box-shadow: -3px 3px 4px black;
   padding: 10px;
   width: 70%;
+  z-index: 1;
 }
 .deleteConfirm_container--relative {
   position: relative;
@@ -1041,7 +1069,7 @@ input {
 }
 
 .account {
-  background-color: #ffd7d7;
+  background-color: #d5d6df;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -1052,6 +1080,8 @@ input {
   margin: auto;
   margin-top: 100px;
   gap: 10px;
+  box-shadow: -3px 3px 4px black;
+  border: solid 5px #c6c8d3;
 }
 @media screen and (min-width: 992px) {
   .account {
@@ -1104,6 +1134,14 @@ input {
 .account__user div i {
   font-size: 70px;
   margin: auto;
+}
+.account__user__name {
+  font-size: 24px;
+}
+@media screen and (min-width: 992px) {
+  .account__user__name {
+    font-size: 30px;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

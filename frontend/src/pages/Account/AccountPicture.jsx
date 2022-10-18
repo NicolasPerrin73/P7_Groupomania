@@ -70,40 +70,44 @@ const AccountPicture = () => {
     <>
       <Header userData={userData} />
 
-      <main className="account">
-        <Link to="/account" className="account__back">
-          <i className="fa-solid fa-left-long"></i>
-        </Link>
+      <main>
+        <h1>Modifiez votre image de profil</h1>
 
-        <AccountUserProfile userData={userData} />
+        <section className="account">
+          <Link to="/account" className="account__back" title="retour">
+            <i className="fa-solid fa-left-long"></i>
+          </Link>
 
-        <form className="post__content post__content--publish">
-          <label htmlFor="file" className="button">
-            Choisir une image
-          </label>
+          <AccountUserProfile userData={userData} />
 
-          <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
+          <form className="post__content post__content--publish">
+            <label htmlFor="file" className="button">
+              Choisir une image
+            </label>
 
-          {selectedImage !== undefined ? (
-            <div className="img_container">
-              <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
-              <button onClick={removeSelectedImage}>
-                <i className="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          ) : profilHaveImage ? (
-            <div className="img_container img_container--profile">
-              <img src={userData.picture_url} alt="profil"></img>
-              <button onClick={(e) => deleteProfilImage()}>
-                <i className="fa-solid fa-trash"></i>
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-        </form>
+            <input type="file" accept="image/*" name="picture" id="file" onChange={imageChange}></input>
 
-        <button onClick={publish}>Enregistrer</button>
+            {selectedImage !== undefined ? (
+              <div className="img_container">
+                <img src={URL.createObjectURL(selectedImage)} alt="Thumb" />
+                <button onClick={removeSelectedImage}>
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            ) : profilHaveImage ? (
+              <div className="img_container img_container--profile">
+                <img src={userData.picture_url} alt="profil"></img>
+                <button onClick={(e) => deleteProfilImage()}>
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </form>
+
+          <button onClick={publish}>Enregistrer</button>
+        </section>
       </main>
       <div className="left-decoration"></div>
     </>
