@@ -879,6 +879,7 @@ input {
 }
 .post__header__picture img {
   height: 100%;
+  width: 100%;
   margin-left: auto;
 }
 .post__header__picture i {
@@ -932,6 +933,7 @@ input {
 }
 .post__content img {
   width: 100%;
+  height: 100%;
 }
 .post__content p {
   position: relative;

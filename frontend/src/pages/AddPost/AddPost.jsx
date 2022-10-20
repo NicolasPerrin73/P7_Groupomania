@@ -44,25 +44,29 @@ const AddPost = () => {
    *Send states content,sqlDate,selectedImage to backend
    */
   const publish = () => {
-    const token = localStorage.getItem("token");
-    let formData = new FormData();
+    if (selectedImage === undefined || content === "") {
+      alert("Ajouter une image et du texte à votre post!");
+    } else {
+      const token = localStorage.getItem("token");
+      let formData = new FormData();
 
-    formData.append("content", content);
-    formData.append("created_date", sqlDate);
-    formData.append("image", selectedImage);
-    axios
-      .post("http://localhost:3001/api/post", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        window.location.href = "/";
-      })
+      formData.append("content", content);
+      formData.append("created_date", sqlDate);
+      formData.append("image", selectedImage);
+      axios
+        .post("http://localhost:3001/api/post", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          window.location.href = "/";
+          console.log(res.data);
+        })
 
-      .catch((err) => console.log(err));
+        .catch((err) => console.log(err));
+    }
   };
 
   return (

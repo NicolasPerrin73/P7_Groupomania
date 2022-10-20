@@ -1,13 +1,14 @@
 //Module
 const groupomaniaDB = require("../middleware/MySqlConnection");
 const fs = require("fs");
+const sharp = require("sharp");
 
 //Create post
 exports.createPost = (req, res, next) => {
   const { content, created_date } = req.body;
   const postObject = req.file
     ? {
-        imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}`,
+        imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}resized.webp`,
       }
     : { ...req.body };
   if (postObject.imageUrl == undefined) {
@@ -20,14 +21,22 @@ exports.createPost = (req, res, next) => {
       }
     });
   } else if (postObject.imageUrl != undefined) {
-    const query = "INSERT INTO post (user_id, content, created_date,img_url) VALUES (?,?,?,?)";
-    groupomaniaDB.query(query, [req.auth.userId, content, created_date, postObject.imageUrl], function (err, results, fields) {
-      if (err != null) {
-        res.status(500).json("createPost error: " + err.message + " at file ../controllers/post.js:line26");
-      } else {
-        res.status(201).json("Post added with image");
-      }
-    });
+    sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+      .resize(500)
+      .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+      .then((file) => {
+        fs.unlink(`./assets/${req.file.filename}`, (err) => {
+          if (err) throw err;
+          const query = "INSERT INTO post (user_id, content, created_date,img_url) VALUES (?,?,?,?)";
+          groupomaniaDB.query(query, [req.auth.userId, content, created_date, postObject.imageUrl], function (err, results, fields) {
+            if (err != null) {
+              res.status(500).json("createPost error: " + err.message + " at file ../controllers/post.js:line26");
+            } else {
+              res.status(201).json("Post added with image");
+            }
+          });
+        });
+      });
   }
 };
 
@@ -99,7 +108,7 @@ exports.modifyPost = (req, res, next) => {
   const { content, created_date, postImage } = req.body;
   const postObject = req.file
     ? {
-        imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}`,
+        imageUrl: `${req.protocol}://${req.get("host")}/assets/${req.file.filename}resized.webp`,
       }
     : { ...req.body };
 
@@ -140,6 +149,14 @@ exports.modifyPost = (req, res, next) => {
             }
           });
         } else if (postObject.imageUrl != undefined) {
+          sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+            .resize(500)
+            .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+            .then((file) => {
+              fs.unlink(`./assets/${req.file.filename}`, (err) => {
+                if (err) throw err;
+              });
+            });
           query = "UPDATE post SET content = ?, img_url = ? WHERE post_id = ?";
           const filename = postData.img_url.split("/assets/")[1];
           fs.unlink(`assets/${filename}`, () => {

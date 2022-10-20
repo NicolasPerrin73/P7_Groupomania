@@ -56,6 +56,7 @@ const EditPost = () => {
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
+      setPostHaveImage(true);
     }
   };
 
@@ -81,23 +82,29 @@ const EditPost = () => {
    *home redirection
    */
   const publish = () => {
-    const token = localStorage.getItem("token");
-    let formData = new FormData();
+    if (selectedImage === undefined || content === "") {
+      alert("Ajouter une image et du texte à votre post!");
+    } else {
+      const token = localStorage.getItem("token");
+      let formData = new FormData();
 
-    formData.append("content", content);
-    formData.append("created_date", sqlDate);
-    formData.append("image", selectedImage);
-    formData.append("postImage", postHaveImage);
-    axios
-      .put(`http://localhost:3001/api/post/${postId}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => console.log(res.data))
-      .then((window.location.href = "/"))
-      .catch((err) => console.log(err));
+      formData.append("content", content);
+      formData.append("created_date", sqlDate);
+      formData.append("image", selectedImage);
+      formData.append("postImage", postHaveImage);
+      axios
+        .put(`http://localhost:3001/api/post/${postId}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          window.location.href = "/";
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
