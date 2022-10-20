@@ -108,3 +108,6 @@ backend/assets/*
 
 # custom script
 script/
+
+#Comment option
+backend/controllers/comment.js
