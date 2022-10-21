@@ -6,12 +6,12 @@ import { useState } from "react";
  * @param {*} { email, setEmail }
  * @return {*}
  */
-const Email = ({ email, setEmail }) => {
+const Email = ({ email, setEmail, formEmailIsValid, setFormEmailIsValid }) => {
   //RegExp for email format: word@word.word
   const emailRegExp = new RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
   //Component state
-  const [emailErrorMsg, setemailErrorMsg] = useState("");
+  const [emailErrorMsg, setemailErrorMsg] = useState(false);
 
   /**
    *On focus, test email input with RegExp
@@ -23,12 +23,15 @@ const Email = ({ email, setEmail }) => {
     const testEmail = emailRegExp.test(event);
     if (testEmail === true) {
       setEmail(event);
-      setemailErrorMsg("");
+      setemailErrorMsg(false);
+      setFormEmailIsValid(true);
     } else if (event === "") {
-      setemailErrorMsg("");
+      setemailErrorMsg(false);
       setEmail();
+      setFormEmailIsValid(false);
     } else if (testEmail === false) {
-      setemailErrorMsg("Format d'email incorrecte");
+      setemailErrorMsg(true);
+      setFormEmailIsValid(false);
     }
   };
 
@@ -36,9 +39,9 @@ const Email = ({ email, setEmail }) => {
     <>
       <label htmlFor="email">Identifiant</label>
 
-      <input id="email" type="email" placeholder="email" onBlur={(event) => emailValidation(event.target.value)} className={emailErrorMsg === "" ? "" : "form__invalid"} />
+      <input id="email" type="email" placeholder="email" onBlur={(event) => emailValidation(event.target.value)} className={emailErrorMsg === false ? "" : "form__invalid"} />
 
-      <span className="form__errorMessage">{emailErrorMsg}</span>
+      <span className={emailErrorMsg === true ? "form__errorMessage" : "hidden"}>Format d'email incorrect</span>
     </>
   );
 };

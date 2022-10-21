@@ -6,7 +6,7 @@ import { useState } from "react";
  * @param {*} { passwordConfirm, setPasswordConfirm }
  * @return {*}
  */
-const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
+const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm, formPasswordConfirmIsValid, setFormPasswordConfirmIsValid }) => {
   //RegExp for password: 6 charatere minimun,1 uppercase,1 lowercase,1 digit,1 special
   const passwordRegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})");
 
@@ -27,12 +27,14 @@ const PasswordConfirm = ({ passwordConfirm, setPasswordConfirm }) => {
     if (testPassword === true) {
       setPasswordConfirm(event);
       setPasswordErrorMsg("");
+      setFormPasswordConfirmIsValid(true);
     } else if (event === "") {
       setPasswordErrorMsg("");
-
       setPasswordConfirm();
+      setFormPasswordConfirmIsValid(false);
     } else {
       setPasswordErrorMsg("6 caractères dont une Majuscule, une miniscule, une chiffre et un caractère spécial");
+      setFormPasswordConfirmIsValid(false);
     }
   };
 

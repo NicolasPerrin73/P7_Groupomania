@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 /**
@@ -6,14 +7,15 @@ import { useState } from "react";
  * @param {*} { firstName, setFirstName, lastName, setLastName }
  * @return {*}
  */
-const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
+const Name = ({ firstName, setFirstName, lastName, setLastName, formNameIsValid, setFormNameIsValid }) => {
   //RegExp for name: no special caractere and digit, 2 caractere minimum
   const nameRegExp = new RegExp("^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$");
 
   //Component state
   const [fistNameIsValid, setFirstNameIsValid] = useState(false);
   const [lasttNameIsValid, setLastNameIsValid] = useState(false);
-  const [nameErrorMsg, setnameErrorMsg] = useState(false);
+  const [firstNameErrorMsg, setFirstNameErrorMsg] = useState(false);
+  const [lastNameErrorMsg, setLastNameErrorMsg] = useState(false);
 
   /**
    *OnChange, test firstName input with RegExp
@@ -26,22 +28,14 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
     if (testName === true) {
       setFirstName(event);
       setFirstNameIsValid(true);
-      if (lasttNameIsValid === true) {
-        setnameErrorMsg(false);
-      } else {
-        setnameErrorMsg(true);
-      }
+      setFirstNameErrorMsg(false);
     } else if (event === "") {
       setFirstNameIsValid(false);
       setFirstName();
-      if (lasttNameIsValid === true) {
-        setnameErrorMsg(false);
-      } else {
-        setnameErrorMsg(true);
-      }
+      setFirstNameErrorMsg(false);
     } else if (testName === false) {
       setFirstNameIsValid(false);
-      setnameErrorMsg(true);
+      setFirstNameErrorMsg(true);
     }
   };
 
@@ -56,36 +50,39 @@ const Name = ({ firstName, setFirstName, lastName, setLastName }) => {
     if (testName === true) {
       setLastName(event);
       setLastNameIsValid(true);
-      if (fistNameIsValid === true) {
-        setnameErrorMsg(false);
-      } else {
-        setnameErrorMsg(true);
-      }
+      setLastNameErrorMsg(false);
     } else if (event === "") {
       setLastNameIsValid(false);
       setLastName();
-      if (fistNameIsValid === true) {
-        setnameErrorMsg(false);
-      } else {
-        setnameErrorMsg(true);
-      }
+      setLastNameErrorMsg(false);
     } else if (testName === false) {
       setLastNameIsValid(false);
-      setnameErrorMsg(true);
+      setLastNameErrorMsg(true);
     }
   };
+
+  /**
+   * Change state if form is valid
+   */
+  useEffect(() => {
+    if (fistNameIsValid === true && lasttNameIsValid === true) {
+      setFormNameIsValid(true);
+    } else {
+      setFormNameIsValid(false);
+    }
+  }, [fistNameIsValid, lasttNameIsValid, setFormNameIsValid]);
 
   return (
     <>
       <label htmlFor="firstName">Nom</label>
 
-      <input id="firstName" type="text" placeholder="Nom de famille" onChange={(event) => firstNameValidation(event.target.value)} className={fistNameIsValid === true ? "" : "form__invalid"} />
+      <input id="firstName" type="text" placeholder="Nom de famille" onChange={(event) => firstNameValidation(event.target.value)} className={firstNameErrorMsg === true ? "form__invalid" : ""} />
 
       <label htmlFor="lastName">Prénom</label>
 
-      <input id="lastName" type="text" placeholder="Prénom" onChange={(event) => lastNameValidation(event.target.value)} className={lasttNameIsValid === true ? "" : "form__invalid"} />
+      <input id="lastName" type="text" placeholder="Prénom" onChange={(event) => lastNameValidation(event.target.value)} className={lastNameErrorMsg === true ? "form__invalid" : ""} />
 
-      <span className={nameErrorMsg === true ? "form__errorMessage" : "form__errorMessage--none"}>Le nom et prenom ne doivent pas contenir de caractère spéciaux</span>
+      <span className={firstNameErrorMsg === true || lastNameErrorMsg === true ? "form__errorMessage" : "hidden"}>2 caractères minimum, sans caractères speciaux</span>
     </>
   );
 };

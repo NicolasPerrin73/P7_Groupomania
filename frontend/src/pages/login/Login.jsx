@@ -15,6 +15,9 @@ function Login() {
   const [mail, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
   const [loginError, setLoginError] = useState(false);
+  const [formEmailIsValid, setFormEmailIsValid] = useState(false);
+  const [formPasswordIsValid, setFormPasswordIsValid] = useState(false);
+  const [formErrorMessage, setFormErrorMessage] = useState(false);
 
   /**
    *Capture OnClick and try to connect user
@@ -24,21 +27,26 @@ function Login() {
    * @param {*} e
    */
   const connexion = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:3001/api/auth/login", {
-        email: mail,
-        password: password,
-      })
-      .then(function (res) {
-        const token = res.data.token;
-        localStorage.setItem("token", token);
-        setLoginError(false);
-        window.location.href = "/";
-      })
-      .catch(function (error) {
-        setLoginError(true);
-      });
+    if (formEmailIsValid === false || formPasswordIsValid === false) {
+      setFormErrorMessage(true);
+    } else if (formEmailIsValid === true && formPasswordIsValid === true) {
+      setFormErrorMessage(false);
+      e.preventDefault();
+      axios
+        .post("http://localhost:3001/api/auth/login", {
+          email: mail,
+          password: password,
+        })
+        .then(function (res) {
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          setLoginError(false);
+          window.location.href = "/";
+        })
+        .catch(function (error) {
+          setLoginError(true);
+        });
+    }
   };
 
   return (
@@ -50,15 +58,17 @@ function Login() {
           <h1>S'identifier</h1>
 
           <form className="form">
-            <Email email={mail} setEmail={setEmail} />
-            <Password password={password} setPassword={setPassword} />
+            <Email email={mail} setEmail={setEmail} formEmailIsValid={formEmailIsValid} setFormEmailIsValid={setFormEmailIsValid} />
+            <Password password={password} setPassword={setPassword} formPasswordIsValid={formPasswordIsValid} setFormPasswordIsValid={setFormPasswordIsValid} />
 
-            <div className={loginError === false ? "form__errorMessage--none" : "form__errorMessage"}>
+            <span className={formErrorMessage === true ? "form__errorMessage" : "hidden"}>Formulaire invalide</span>
+
+            <button onClick={(e) => connexion(e)}>Connexion</button>
+
+            <div className={loginError === false ? "hidden" : "form__errorMessage"}>
               <i className="fa-sharp fa-solid fa-circle-exclamation"></i>
               <span>Identifiant et/ou mot de passe erroné</span>
             </div>
-
-            <button onClick={(e) => connexion(e)}>Connexion</button>
           </form>
         </section>
 

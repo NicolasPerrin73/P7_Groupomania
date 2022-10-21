@@ -6,12 +6,12 @@ import { useState } from "react";
  * @param {*} { password, setPassword, current }
  * @return {*}
  */
-const Password = ({ password, setPassword, current }) => {
+const Password = ({ password, setPassword, current, formPasswordIsValid, setFormPasswordIsValid }) => {
   //RegExp for password: 6 charatere minimun,1 uppercase,1 lowercase,1 digit,1 special
   const passwordRegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,})");
 
   //Component states
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState(false);
   const [isVisible, setIsVisible] = useState("password");
 
   /**
@@ -26,12 +26,15 @@ const Password = ({ password, setPassword, current }) => {
 
     if (testPassword === true) {
       setPassword(event);
-      setPasswordErrorMsg("");
+      setPasswordErrorMsg(false);
+      setFormPasswordIsValid(true);
     } else if (event === "") {
-      setPasswordErrorMsg("");
+      setPasswordErrorMsg(false);
       setPassword();
+      setFormPasswordIsValid(false);
     } else {
-      setPasswordErrorMsg("6 caractères dont une Majuscule, une miniscule, une chiffre et un caractère spécial");
+      setPasswordErrorMsg(true);
+      setFormPasswordIsValid(false);
     }
   };
 
@@ -56,13 +59,13 @@ const Password = ({ password, setPassword, current }) => {
           type={isVisible}
           placeholder="P@ssw0rd"
           onBlur={(event) => passwordValidation(event.target.value)}
-          className={passwordErrorMsg === "" ? "" : "form__invalid"}
+          className={passwordErrorMsg === false ? "" : "form__invalid"}
         />
 
         <i className="fa-solid fa-eye" onClick={showpassword}></i>
       </div>
 
-      <span className="form__errorMessage">{passwordErrorMsg}</span>
+      <span className={passwordErrorMsg === true ? "form__errorMessage" : "hidden"}>6 caractères dont une Majuscule, une miniscule, une chiffre et un caractère spécial</span>
     </>
   );
 };

@@ -560,7 +560,7 @@ ul {
   justify-content: space-around;
 }
 .form__invalid {
-  color: #fd2d01;
+  background-color: #ff6262;
 }
 .form__error {
   display: flex;
@@ -580,29 +580,39 @@ ul {
 .form__password i {
   position: absolute;
   right: 3px;
+  top: 9px;
   margin-left: 3px;
   font-size: 20px;
+  cursor: pointer;
 }
 .form__errorMessage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #4e5166;
+  color: #ac1f01;
   font-size: 18px;
   text-align: center;
-  margin-top: 5px;
   margin-bottom: 5px;
+  margin-top: 5px;
+}
+@media screen and (min-width: 992px) {
+  .form__errorMessage {
+    font-size: 20px;
+  }
 }
 .form__errorMessage i {
   color: #fd2d01;
 }
-.form__errorMessage--none {
-  display: none;
+@media screen and (min-width: 992px) {
+  .form__errorMessage i {
+    font-size: 26px;
+  }
 }
 
 input {
   width: 100%;
   height: 30px;
+  margin-bottom: 10px;
 }
 
 .loader_container {
