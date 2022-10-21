@@ -511,7 +511,10 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: 100vh;
+}
+.login_container--error {
+  justify-content: center;
 }
 @media screen and (min-width: 480px) {
   .login_container {

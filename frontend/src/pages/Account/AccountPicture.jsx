@@ -61,8 +61,10 @@ const AccountPicture = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => console.log(res.data))
-      .then((window.location.href = "/account"))
+      .then((res) => {
+        console.log(res.data);
+        window.location.href = "/account";
+      })
       .catch((err) => console.log(err));
   };
 

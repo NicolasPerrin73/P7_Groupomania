@@ -23,10 +23,12 @@ router.post("/:postId/like", auth, postCtrl.likePost);
 router.get("/:postId/like", auth, postCtrl.getLikeCount);
 router.get("/:postId/like/user", auth, postCtrl.getUserLike);
 
-//Endpoints for comment
+//Optionnal Endpoints for comment
+/*
 router.get("/:postId/comment", auth, commentCtrl.getComments);
 router.post("/:postId/comment", auth, commentCtrl.addComment);
 router.delete("/comment/:commentId", auth, commentCtrl.deleteComment);
 router.put("/comment/:commentId", auth, commentCtrl.modifyComment);
+*/
 
 module.exports = router;
