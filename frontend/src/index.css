@@ -891,7 +891,7 @@ input {
   overflow: hidden;
 }
 .post__header__picture img {
-  height: 100%;
+  height: auto;
   width: 100%;
   margin-left: auto;
 }
@@ -1046,6 +1046,7 @@ input {
 }
 
 .post__footer--publish {
+  cursor: pointer;
   justify-content: center;
   border: outset #4e5166 5px;
 }
