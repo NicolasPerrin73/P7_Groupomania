@@ -148,8 +148,8 @@ exports.modifyPost = (req, res, next) => {
         if (postImage == "false" && postData.img_url !== null) {
           const filename = postData.img_url.split("/assets/")[1];
           fs.unlink(`assets/${filename}`, () => {
-            query = "UPDATE post SET content = ?, img_url = ? WHERE post_id = ?";
-            groupomaniaDB.query(query, [content, null, req.params.postId], function (err, results, fields) {
+            query = "UPDATE post SET content = ?, img_url = ?, created_date = ? WHERE post_id = ?";
+            groupomaniaDB.query(query, [content, null, created_date, req.params.postId], function (err, results, fields) {
               if (err != null) {
                 res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line154");
               } else {
@@ -159,8 +159,8 @@ exports.modifyPost = (req, res, next) => {
           });
           // No image sent
         } else if (postObject.imageUrl == undefined) {
-          query = "UPDATE post SET content = ? WHERE post_id = ?";
-          groupomaniaDB.query(query, [content, req.params.postId], function (err, results, fields) {
+          query = "UPDATE post SET content = ?, created_date = ? WHERE post_id = ?";
+          groupomaniaDB.query(query, [content, created_date, req.params.postId], function (err, results, fields) {
             if (err != null) {
               res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line165");
             } else {
@@ -185,8 +185,8 @@ exports.modifyPost = (req, res, next) => {
               if (err) throw err;
             });
           }
-          query = "UPDATE post SET content = ?, img_url = ? WHERE post_id = ?";
-          groupomaniaDB.query(query, [content, postObject.imageUrl, req.params.postId], function (err, results, fields) {
+          query = "UPDATE post SET content = ?, img_url = ?, created_date = ? WHERE post_id = ?";
+          groupomaniaDB.query(query, [content, postObject.imageUrl, created_date, req.params.postId], function (err, results, fields) {
             if (err != null) {
               res.status(500).json("modifyPost error: " + err.message + " at file ../controllers/post.js:line191");
             } else {

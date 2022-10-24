@@ -82,7 +82,7 @@ const EditPost = () => {
    *home redirection
    */
   const publish = () => {
-    if (selectedImage === undefined || content === "") {
+    if (postHaveImage === false || content === "") {
       alert("Ajouter une image et du texte à votre post!");
     } else {
       const token = localStorage.getItem("token");

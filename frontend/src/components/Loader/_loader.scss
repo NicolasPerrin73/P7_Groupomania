@@ -2,12 +2,6 @@
   display: flex;
   justify-content: center;
   animation: loader-disapear 200ms 550ms forwards;
-  & img {
-    position: absolute;
-    width: 200px;
-    z-index: -1;
-    margin-top: 20px;
-  }
 }
 
 .loader {
