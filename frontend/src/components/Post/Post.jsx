@@ -132,6 +132,9 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
       .catch((err) => console.log(err));
   }, [likeValue, post_id]);
 
+  /**
+   *Change isTooLoong state for hiding long content
+   */
   useEffect(() => {
     if (content.length > 450) {
       setIsTooLong(true);
@@ -152,7 +155,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
         <time>{formatDate}</time>
       </header>
 
-      <div className="post__content">
+      <section className="post__content">
         {delecteClick === true ? <DeleteConfirm IsConfirmed={IsConfirmed} setIsConfirmed={setIsConfirmed} setdeleteClick={setdeleteClick} deleteText={"ce post"} /> : ""}
 
         {img_url === null ? "" : <img src={img_url} alt="post"></img>}
@@ -186,7 +189,7 @@ const Post = ({ deletedPost, setDeletedPost, post_id, content, img_url, created_
         ) : (
           ""
         )}
-      </div>
+      </section>
 
       <footer className={user_id === current_user_id || current_user_is_admin === 1 ? "post__footer " : "post__footer post__footer--simple"}>
         {user_id === current_user_id || current_user_is_admin === 1 ? (

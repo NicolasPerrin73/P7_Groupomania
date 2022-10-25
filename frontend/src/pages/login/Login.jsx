@@ -28,6 +28,7 @@ function Login() {
    */
   const connexion = (e) => {
     if (formEmailIsValid === false || formPasswordIsValid === false) {
+      e.preventDefault();
       setFormErrorMessage(true);
     } else if (formEmailIsValid === true && formPasswordIsValid === true) {
       setFormErrorMessage(false);
@@ -61,9 +62,9 @@ function Login() {
             <Email email={mail} setEmail={setEmail} formEmailIsValid={formEmailIsValid} setFormEmailIsValid={setFormEmailIsValid} />
             <Password password={password} setPassword={setPassword} formPasswordIsValid={formPasswordIsValid} setFormPasswordIsValid={setFormPasswordIsValid} />
 
-            <span className={formErrorMessage === true ? "form__errorMessage" : "hidden"}>Formulaire invalide</span>
-
             <button onClick={(e) => connexion(e)}>Connexion</button>
+
+            <span className={formErrorMessage === true ? "form__errorMessage" : "hidden"}>Formulaire invalide</span>
 
             <div className={loginError === false ? "hidden" : "form__errorMessage"}>
               <i className="fa-sharp fa-solid fa-circle-exclamation"></i>

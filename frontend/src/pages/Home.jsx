@@ -42,22 +42,14 @@ const Home = () => {
         setPostsData(res.data);
         setDeletedPost(false);
         setTimeout(() => setIsLoading(false), 750);
+        setTimeout(() => setPostAppear(true), 800);
       })
       .catch((err) => console.log(err));
   }, [deletedPost]);
 
-  /**
-   *Animation for posts
-   */
-  useEffect(() => {
-    setTimeout(() => {
-      setPostAppear(true);
-    }, 800);
-  }, []);
-
   return (
     <>
-      <Header userData={userData} postAppear={postAppear} setPostAppear={setPostAppear} />
+      <Header userData={userData} />
 
       <main>
         <h1>Fil d'actualité</h1>
