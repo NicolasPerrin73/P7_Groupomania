@@ -620,12 +620,6 @@ input {
   justify-content: center;
   animation: loader-disapear 200ms 550ms forwards;
 }
-.loader_container img {
-  position: absolute;
-  width: 200px;
-  z-index: -1;
-  margin-top: 20px;
-}
 
 .loader {
   position: absolute;
