@@ -11,7 +11,7 @@ const multer = require("../middleware/multerConfig");
 
 //Controllers
 const postCtrl = require("../controllers/post");
-const commentCtrl = require("../controllers/comment");
+//const commentCtrl = require("../controllers/comment");
 
 //Endpoints for post
 router.get("/", auth, postCtrl.getPosts);
