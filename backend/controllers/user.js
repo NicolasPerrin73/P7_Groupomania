@@ -135,9 +135,9 @@ exports.modifyUserPicture = (req, res, next) => {
         //File sent, no picture stored
       } else if (userData[0].picture_url == null) {
         //Resize image
-        sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+        sharp(`../backend/assets/${req.file.filename}`)
           .resize(200)
-          .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+          .toFile(`../backend/assets/${req.file.filename}resized.webp`)
           .then((file) => {
             // Remove original image stored by multer
             fs.unlink(`./assets/${req.file.filename}`, (err) => {
@@ -155,9 +155,9 @@ exports.modifyUserPicture = (req, res, next) => {
         //File sent, already have picture
       } else if (userData[0].picture_url != null) {
         //Resize image
-        sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+        sharp(`../backend/assets/${req.file.filename}`)
           .resize(200)
-          .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+          .toFile(`../backend/assets/${req.file.filename}resized.webp`)
           .then((file) => {
             // Remove original image stored by multer
             fs.unlink(`./assets/${req.file.filename}`, (err) => {

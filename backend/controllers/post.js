@@ -26,9 +26,9 @@ exports.createPost = (req, res, next) => {
     //Post have image sent
   } else if (postObject.imageUrl != undefined) {
     // Resize image
-    sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+    sharp(`../backend/assets/${req.file.filename}`)
       .resize(500)
-      .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+      .toFile(`../backend/assets/${req.file.filename}resized.webp`)
       .then((file) => {
         // Remove original image stored by multer
         fs.unlink(`./assets/${req.file.filename}`, (err) => {
@@ -170,9 +170,9 @@ exports.modifyPost = (req, res, next) => {
           // Image sent
         } else if (postObject.imageUrl != undefined) {
           //Resize image
-          sharp(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}`)
+          sharp(`../backend/assets/${req.file.filename}`)
             .resize(500)
-            .toFile(`D:/Documents/Openclassrooms/P7/P7_Groupomania/backend/assets/${req.file.filename}resized.webp`)
+            .toFile(`../backend/assets/${req.file.filename}resized.webp`)
             .then((file) => {
               fs.unlink(`./assets/${req.file.filename}`, (err) => {
                 if (err) throw err;
